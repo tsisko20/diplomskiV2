@@ -1,0 +1,57 @@
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
+using UnityEngine;
+
+public class CameraControl : MonoBehaviour
+{
+    [SerializeField] private Vector3 lowerLimits;
+    [SerializeField] private Vector3 upperLimits;
+    [SerializeField] private float scrollSpeed;
+    [SerializeField] private float movementSpeed = 200f;
+    [SerializeField] float panBorderThickness = 10f;
+    private bool shouldMoveCamera = false;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Space)) 
+        {
+            shouldMoveCamera = !shouldMoveCamera;
+        }
+        if (shouldMoveCamera) 
+        {
+            HandleCameraMovement();   
+        }
+    }
+    private void HandleCameraMovement()
+    {
+        Vector3 newPosition = transform.position;
+        if (Input.mousePosition.y >= Screen.height - panBorderThickness)
+        {
+            newPosition.z += movementSpeed * Time.deltaTime;
+        }
+        if (Input.mousePosition.y <= panBorderThickness)
+        {
+            newPosition.z -= movementSpeed * Time.deltaTime;
+        }
+        if (Input.mousePosition.x >= Screen.width - panBorderThickness)
+        {
+            newPosition.x += movementSpeed * Time.deltaTime;
+        }
+        if (Input.mousePosition.x <= panBorderThickness)
+        {
+            newPosition.x -= movementSpeed * Time.deltaTime;
+        }
+        float scrollAmount = Input.GetAxis("Mouse ScrollWheel");
+        newPosition.y -= scrollAmount * scrollSpeed * 100f * Time.deltaTime;
+        newPosition.y = Mathf.Clamp(newPosition.y, lowerLimits.y, upperLimits.y);
+        newPosition.x = Mathf.Clamp(newPosition.x, lowerLimits.x, upperLimits.x);
+        newPosition.z = Mathf.Clamp(newPosition.z, lowerLimits.z, upperLimits.z);
+        transform.position = newPosition;
+    }
+}
