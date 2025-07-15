@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RTS.Units
+namespace RTS.Objects.Units
 {
     public class MovingRange : MonoBehaviour
     {

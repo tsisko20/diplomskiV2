@@ -1,14 +1,11 @@
-using NUnit.Framework;
-using RTS;
-using RTS.InputManager;
-using RTS.Units;
+using RTS.Ability;
+using RTS.Objects;
+using RTS.Objects.Units;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Security;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace RTS.UI
@@ -17,24 +14,58 @@ namespace RTS.UI
     {
         [SerializeField] private Transform singleSelect;
         [SerializeField] private Transform multiSelect;
+        [SerializeField] private Transform abilityGrid;
         public void UpdateSelectionUI(List<Transform> units)
         {
             switch (units.Count)
             {
                 case 1:
                     singleSelect.gameObject.SetActive(true);
+                    abilityGrid.gameObject.SetActive(true);
                     multiSelect.gameObject.SetActive(false);
                     UpdateSingleSelectData(units[0]);
+                    UpdateAbilityGrid(units[0]);
                     break;
                 case > 1:
                     singleSelect.gameObject.SetActive(false);
+                    abilityGrid.gameObject.SetActive(false);
                     multiSelect.gameObject.SetActive(true);
                     UpdateMultiSelectData(units);
                     break;
                 default:
                     singleSelect.gameObject.SetActive(false);
+                    abilityGrid.gameObject.SetActive(false);
                     multiSelect.gameObject.SetActive(false);
                     break;
+            }
+        }
+
+        private void UpdateAbilityGrid(Transform unit)
+        {
+            foreach (Transform child in abilityGrid)
+            {
+                Destroy(child.gameObject);
+            }
+
+            SelectableObject selectable = unit.GetComponent<SelectableObject>();
+            if (selectable)
+            {
+                foreach (AbilityHolder abilityHolder in selectable.GetAbilityHolders())
+                {
+                    GameObject buttonPrefab = Instantiate(abilityHolder.GetButtonPrefab(), abilityGrid);
+                    Button button = buttonPrefab.GetComponent<Button>();
+                    if (button != null)
+                    {
+                        button.onClick.AddListener(() =>
+                        {
+                            if (abilityHolder.GetAbilityState() == AbilityStateType.Ready)
+                            {
+                                Debug.Log(unit.name);
+                                abilityHolder.ActivateAbility(); // Pozovi metodu aktivacije
+                            }
+                        });
+                    }
+                }
             }
         }
 
@@ -48,6 +79,8 @@ namespace RTS.UI
             TextMeshProUGUI attackDamage = unitStats.Find("AttackDamageValue").GetComponent<TextMeshProUGUI>();
             TextMeshProUGUI attackRange = unitStats.Find("AttackRangeValue").GetComponent<TextMeshProUGUI>();
             TextMeshProUGUI attackSpeed = unitStats.Find("AttackSpeedValue").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI moveSpeedValue = unitStats.Find("MoveSpeedValue").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI moveSpeedLabel = unitStats.Find("MoveSpeedLbl").GetComponent<TextMeshProUGUI>();
             SelectableObject selectable = unit.GetComponent<SelectableObject>();
             if (selectable != null)
             {
@@ -60,13 +93,25 @@ namespace RTS.UI
                 attackDamage.text = selectable.GetBaseStats().baseStats.attackDamage.ToString();
                 attackRange.text = selectable.GetBaseStats().baseStats.attackRange.ToString();
                 attackSpeed.text = selectable.GetBaseStats().baseStats.attackSpeed.ToString();
+                Unit unitObject = selectable as Unit;
+                if (unitObject != null)
+                {
+                    moveSpeedLabel.gameObject.SetActive(true);
+                    moveSpeedValue.gameObject.SetActive(true);
+                    moveSpeedValue.text = unitObject.unitStats.GetMoveSpeed().ToString();
+                }
+                else
+                {
+                    moveSpeedLabel.gameObject.SetActive(false);
+                    moveSpeedValue.gameObject.SetActive(false);
+                    moveSpeedValue.text = "0";
+                }
             }
 
         }
         private void UpdateMultiSelectData(List<Transform> units)
         {
             GameObject unitLayoutPrefab = Resources.Load<GameObject>("Prefabs/2D/UnitGridLayout");
-            Debug.Log(unitLayoutPrefab.name);
             Transform unitGrid = multiSelect.Find("UnitsGrid");
             foreach (Transform child in unitGrid)
             {

@@ -8,7 +8,7 @@ using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using static UnityEngine.UI.CanvasScaler;
 
-namespace RTS.Units
+namespace RTS.Objects.Units
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public class Unit : SelectableObject, IAttackable
@@ -20,15 +20,16 @@ namespace RTS.Units
         [SerializeField] private MovingRange movingRange;
         CombatBehaviour combatBehaviour;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        protected override void Setup()
         {
 
             animator = GetComponent<UnitAnimator>();
             navAgent = GetComponent<NavMeshAgent>();
+            navAgent.speed = unitStats.GetMoveSpeed();
             combatBehaviour = GetComponent<CombatBehaviour>();
             SetTeam();
             SetMaterial();
-            currentHealth = unitStats.baseStats.health;
+            health = unitStats.baseStats.health;
         }
 
 
@@ -73,7 +74,7 @@ namespace RTS.Units
 
 
 
-        protected virtual void Die()
+        protected override void Die()
         {
             InputManager.InputHandler.instance.selectedObjects.Remove(gameObject.GetComponent<Transform>());
             navAgent.isStopped = true;
@@ -81,20 +82,11 @@ namespace RTS.Units
             animator.PlayDieAnimation();
             Collider col = GetComponent<Collider>();
             if (col) col.enabled = false;
+            Transform movingRange = transform.Find("MovingRange");
+            movingRange.gameObject.SetActive(false);
             //Destroy(gameObject);
         }
-        public override bool IsDead() => currentHealth <= 0;
-        public void TakeDamage(float damage)
-        {
-
-            float totalDamage = damage - (damage * (unitStats.baseStats.armor / 100));
-            currentHealth -= totalDamage;
-            if (currentHealth <= 0)
-            {
-                Die();
-            }
-        }
-
+        public override bool IsDead() => health <= 0;
         public void MoveUnit(Vector3 destination)
         {
             navAgent.isStopped = false;

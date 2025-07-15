@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RTS.Units
+namespace RTS.Objects.Units
 {
     public class CombatBehaviour : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RTS.Units
+namespace RTS.Objects
 {
     public class ObjectStatDisplay : MonoBehaviour
     {

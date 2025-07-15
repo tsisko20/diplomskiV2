@@ -1,4 +1,6 @@
 using RTS.InputManager;
+using RTS.Objects;
+using RTS.Objects.Units;
 using RTS.UI;
 using RTS.Units;
 using RTS.Units.Player;
@@ -31,7 +33,7 @@ namespace RTS.InputManager
         private void Update()
         {
             HandleUnitMovement();
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
                 isDragging = true;
             }
@@ -50,6 +52,8 @@ namespace RTS.InputManager
         {
             if (Input.GetMouseButtonDown(0))
             {
+                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                    return;
                 mousePos = Input.mousePosition;
                 //create a ray
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

@@ -4,55 +4,52 @@ using RTS.InputManager;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshObstacle))]
-public class Building : SelectableObject, IAttackable
+namespace RTS.Objects.Buildings
 {
-    [SerializeField] private BasicBuilding buildingStats;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [RequireComponent(typeof(NavMeshObstacle))]
+    public class Building : SelectableObject, IAttackable
     {
-        currentHealth = buildingStats.baseStats.health;
-        SetTeam();
-        SetMaterial();
-    }
+        [SerializeField] private BasicBuilding buildingStats;
 
 
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    public override string GetObjectName()
-    {
-        return buildingStats.buildingName;
-    }
-
-    public override BasicObject GetBaseStats()
-    {
-        return buildingStats;
-    }
-
-
-    public Transform GetTransform() => transform;
-
-    public override bool IsDead() => currentHealth <= 0;
-
-    public void TakeDamage(float amount)
-    {
-        currentHealth -= amount;
-        if (currentHealth < 0)
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        protected override void Setup()
         {
-            Die();
+            health = buildingStats.baseStats.health;
+            SetTeam();
+            SetMaterial();
         }
-    }
-    public void Die()
-    {
-        RTS.InputManager.InputHandler.instance.selectedObjects.Remove(gameObject.GetComponent<Transform>());
-        Collider col = GetComponent<Collider>();
-        if (col) col.enabled = false;
-    }
 
+
+
+        // Update is called once per frame
+        void Update()
+        {
+        }
+
+        public override string GetObjectName()
+        {
+            return buildingStats.buildingName;
+        }
+
+        public override BasicObject GetBaseStats()
+        {
+            return buildingStats;
+        }
+
+
+        public Transform GetTransform() => transform;
+
+        public override bool IsDead() => health <= 0;
+
+        protected override void Die()
+        {
+            RTS.InputManager.InputHandler.instance.selectedObjects.Remove(gameObject.GetComponent<Transform>());
+            Collider col = GetComponent<Collider>();
+            if (col) col.enabled = false;
+        }
+
+    }
 }

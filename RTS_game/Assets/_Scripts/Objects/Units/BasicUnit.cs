@@ -10,6 +10,12 @@ namespace RTS.Units
         [Space(5)]
         public UnitType unitType;
         public string unitName;
+        [SerializeField] private float moveSpeed;
+
+        public float GetMoveSpeed()
+        {
+            return moveSpeed;
+        }
 
 
 

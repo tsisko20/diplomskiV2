@@ -1,9 +1,12 @@
-﻿using UnityEditor;
+﻿using NUnit.Framework;
+using RTS.Ability;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using static RTS.BasicObject;
 
-namespace RTS.InputManager
+namespace RTS.Objects
 {
     public abstract class SelectableObject : MonoBehaviour
     {
@@ -12,7 +15,19 @@ namespace RTS.InputManager
         public Material blueMaterial;
         public Material neutralMaterial;
         public SkinnedMeshRenderer rend;
-        protected float currentHealth;
+        protected float health;
+        protected float armor;
+        protected float attackDamage;
+        protected float attackRange;
+        protected float attackSpeed;
+        protected float moveSpeed;
+        private AbilityHolder[] abilityHolders;
+
+        private void Start()
+        {
+            Setup();
+            abilityHolders = GetComponents<AbilityHolder>();
+        }
 
         public void Select()
         {
@@ -52,8 +67,26 @@ namespace RTS.InputManager
             }
         }
 
+        public void TakeDamage(float damage)
+        {
+
+            float totalDamage = damage - (damage * (armor / 100));
+            health -= totalDamage;
+            if (health <= 0)
+            {
+                Die();
+            }
+        }
+
+        protected abstract void Die();
+
         public abstract BasicObject GetBaseStats();
         public abstract string GetObjectName();
-        public float GetCurrentHealth() => currentHealth;
+        public float GetCurrentHealth() => health;
+
+        protected abstract void Setup();
+
+        public AbilityHolder[] GetAbilityHolders() => abilityHolders;
+
     }
 }
