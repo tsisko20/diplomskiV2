@@ -56,6 +56,8 @@ namespace RTS.UI
                     Button button = buttonPrefab.GetComponent<Button>();
                     if (button != null)
                     {
+                        AbilityButtonUI buttonUI = button.transform.Find("AbilityButtonComponents").GetComponent<AbilityButtonUI>();
+                        abilityHolder.SetButtonUIComponent(buttonUI);
                         button.onClick.AddListener(() =>
                         {
                             if (abilityHolder.GetAbilityState() == AbilityStateType.Ready)
@@ -67,6 +69,8 @@ namespace RTS.UI
                     }
                 }
             }
+            Debug.Log("ability grid updated");
+
         }
 
         private void UpdateSingleSelectData(Transform unit)

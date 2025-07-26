@@ -17,6 +17,8 @@ namespace RTS.InputManager
         public List<Transform> selectedObjects = new List<Transform>();
         [SerializeField] private bool isDragging = false;
         private Vector3 mousePos;
+        private float dragThreshold = 10f;
+        private bool mouseStartedOverUI = false;
         private const string SELECTION_SPRITE = "selectionSprite";
         CombatBehaviour combatBehaviour;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,10 +35,7 @@ namespace RTS.InputManager
         private void Update()
         {
             HandleUnitMovement();
-            if (Input.GetMouseButton(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-            {
-                isDragging = true;
-            }
+
         }
 
         private void OnGUI()
@@ -50,83 +49,95 @@ namespace RTS.InputManager
         }
         public void HandleUnitMovement()
         {
+            // Start drag
             if (Input.GetMouseButtonDown(0))
             {
-                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-                    return;
+
                 mousePos = Input.mousePosition;
-                //create a ray
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                //check if we hit something
-                if (Physics.Raycast(ray, out hit))
+            }
+
+            // Check for dragging
+            if (Input.GetMouseButton(0))
+            {
+                if (Vector3.Distance(mousePos, Input.mousePosition) > dragThreshold)
                 {
-                    SelectableObject selectable = hit.transform.GetComponent<SelectableObject>();
-                    if (selectable != null)
-                    {
-                        Debug.Log($"Selected: {hit.transform.name}");
-                        SelectObject(selectable, Input.GetKey(KeyCode.LeftShift));
-                    }
-                    else
-                    {
-                        isDragging = true;
-                        DeselectObjects();
-                    }
+                    isDragging = true;
                 }
             }
 
+            // On release
             if (Input.GetMouseButtonUp(0))
             {
-                foreach (Transform unitType in Player.UnitManager.instance.playerUnits)
+                if (isDragging)
                 {
-                    foreach (Transform unit in unitType)
+                    // Multi-selekcija
+                    DeselectObjects();
+                    foreach (Transform unitType in Player.UnitManager.instance.playerUnits)
                     {
-                        SelectableObject selectable = unit.GetComponent<SelectableObject>();
-                        if (selectable != null && isWithinSelectedBounds(unit))
+                        foreach (Transform unit in unitType)
                         {
-                            SelectObject(selectable, true);
-
+                            SelectableObject selectable = unit.GetComponent<SelectableObject>();
+                            if (selectable != null && IsWithinSelectedBounds(unit))
+                            {
+                                SelectObject(selectable, true);
+                            }
                         }
                     }
                 }
+                else
+                {
+                    // Klik selekcija
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        SelectableObject selectable = hit.transform.GetComponent<SelectableObject>();
+                        if (selectable != null)
+                        {
+                            if (!Input.GetKey(KeyCode.LeftShift))
+                                DeselectObjects();
+
+                            SelectObject(selectable, Input.GetKey(KeyCode.LeftShift));
+                        }
+                        else
+                        {
+                            DeselectObjects();
+                        }
+                    }
+                }
+
                 isDragging = false;
                 selectedUI.UpdateSelectionUI(selectedObjects);
             }
+
+            // Desni klik: kretanje / napad
             if (Input.GetMouseButton(1) && HaveSelectedUnits())
             {
+                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                    return;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit))
                 {
                     IAttackable target = hit.transform.GetComponent<IAttackable>();
-
-                    if (target != null && target.GetTeam() != Team.Player)
+                    foreach (Transform selectedUnit in selectedObjects)
                     {
-                        // Kliknuli smo na neprijateljsku metu
-                        foreach (Transform selectedUnit in selectedObjects)
-                        {
-                            Unit unit = selectedUnit.GetComponent<Unit>();
-                            if (unit == null || unit.IsDead() || unit.GetTeam() != Team.Player) continue;
+                        Unit unit = selectedUnit.GetComponent<Unit>();
+                        if (unit == null || unit.IsDead() || unit.GetTeam() != Team.Player) continue;
 
-                            CombatBehaviour cb = unit.GetComponent<CombatBehaviour>();
+                        CombatBehaviour cb = unit.GetComponent<CombatBehaviour>();
+
+                        if (target != null && target.GetTeam() != Team.Player)
+                        {
                             cb.SetAggressive(true);
                             cb.SetAggro(target);
                         }
-                    }
-                    else
-                    {
-                        // Kliknuto je na prazno tlo – pomeri jedinice
-                        foreach (Transform selectedUnit in selectedObjects)
+                        else
                         {
-                            Unit unit = selectedUnit.GetComponent<Unit>();
-                            if (unit == null || unit.IsDead() || unit.GetTeam() != Team.Player) continue;
-
                             unit.MoveUnit(hit.point);
-                            CombatBehaviour cb = unit.GetComponent<CombatBehaviour>();
-                            cb.SetAggressive(false); // zaustavi target dok ne stignu
+                            cb.SetAggressive(false);
                         }
                     }
                 }
             }
-
         }
 
         private void SelectObject(SelectableObject selectable, bool canMultiSelect = false)
@@ -159,7 +170,7 @@ namespace RTS.InputManager
             }
             selectedObjects.Clear();
         }
-        private bool isWithinSelectedBounds(Transform selectable)
+        private bool IsWithinSelectedBounds(Transform selectable)
         {
             if (!isDragging)
             {

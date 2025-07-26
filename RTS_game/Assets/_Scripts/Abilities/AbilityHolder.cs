@@ -13,6 +13,7 @@ namespace RTS.Ability
         [SerializeField] protected float activeDuration = 0;
         [SerializeField] protected float activeCooldown = 0;
         [SerializeField] private GameObject buttonPrefab;
+        [SerializeField] private AbilityButtonUI buttonUI;
 
         private void Start()
         {
@@ -32,6 +33,8 @@ namespace RTS.Ability
                     if (activeDuration < abilityInstance.GetDuration())
                     {
                         activeDuration += Time.deltaTime;
+                        if (buttonUI)
+                            buttonUI.UpdateActiveAnimation(activeDuration);
                     }
                     else
                     {
@@ -44,6 +47,8 @@ namespace RTS.Ability
                     if (activeCooldown < abilityInstance.GetCooldown())
                     {
                         activeCooldown += Time.deltaTime;
+                        if (buttonUI)
+                            buttonUI.UpdateCdAnimation(activeCooldown);
                     }
                     else
                     {
@@ -63,6 +68,11 @@ namespace RTS.Ability
 
         public AbilityStateType GetAbilityState() => abilityState;
 
+        public void SetButtonUIComponent(AbilityButtonUI buttonUIComponent)
+        {
+            buttonUI = buttonUIComponent;
+            buttonUI.Setup(abilityInstance.GetCooldown(), abilityInstance.GetDuration());
+        }
     }
 
 }

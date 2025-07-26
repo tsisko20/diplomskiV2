@@ -1605,7 +1605,7 @@ PrefabInstance:
       addedObject: {fileID: -8020328370552643829}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dff32c648ed02d4da6eb7ab4702f33c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -4110431556483737946}
+      addedObject: {fileID: 8103108728813015202}
   m_SourcePrefab: {fileID: 100100000, guid: 7dff32c648ed02d4da6eb7ab4702f33c, type: 3}
 --- !u!137 &1927413773579429670 stripped
 SkinnedMeshRenderer:
@@ -1762,7 +1762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4189659f4e8234eab85338e173dfc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4110431556483737946
+--- !u!114 &8103108728813015202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1778,3 +1778,4 @@ MonoBehaviour:
   activeDuration: 0
   activeCooldown: 0
   buttonPrefab: {fileID: 1537048188674838020, guid: b45abc08450158b46ada8fd28d7a8291, type: 3}
+  buttonUI: {fileID: 0}
