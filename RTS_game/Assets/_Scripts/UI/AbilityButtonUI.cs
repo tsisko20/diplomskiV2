@@ -25,7 +25,6 @@ public class AbilityButtonUI : MonoBehaviour
 
     public void UpdateActiveAnimation(float activeDuration)
     {
-        Debug.Log(duration + " " + activeDuration);
         activeImage.fillAmount = duration > 0 ? 1 - activeDuration / duration : 0;
     }
     public void UpdateCdAnimation(float activeCooldown)

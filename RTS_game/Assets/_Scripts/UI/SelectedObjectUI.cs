@@ -15,6 +15,29 @@ namespace RTS.UI
         [SerializeField] private Transform singleSelect;
         [SerializeField] private Transform multiSelect;
         [SerializeField] private Transform abilityGrid;
+        //[SerializeField] Image icon;
+        //[SerializeField] TextMeshProUGUI unitName;
+        //[SerializeField] TextMeshProUGUI maxHealth;
+        //[SerializeField] TextMeshProUGUI armor;
+        //[SerializeField] TextMeshProUGUI attackDamage;
+        //[SerializeField] TextMeshProUGUI attackRange;
+        //[SerializeField] TextMeshProUGUI attackSpeed;
+        //[SerializeField] TextMeshProUGUI moveSpeedValue;
+        //[SerializeField] TextMeshProUGUI moveSpeedLabel;
+
+        //private void Start()
+        //{
+
+        //}
+
+        private void Update()
+        {
+            if (singleSelect.gameObject.activeInHierarchy)
+            {
+
+            }
+        }
+
         public void UpdateSelectionUI(List<Transform> units)
         {
             switch (units.Count)
@@ -72,7 +95,6 @@ namespace RTS.UI
             Debug.Log("ability grid updated");
 
         }
-
         private void UpdateSingleSelectData(Transform unit)
         {
             Transform unitStats = singleSelect.Find("UnitStats");
@@ -85,12 +107,16 @@ namespace RTS.UI
             TextMeshProUGUI attackSpeed = unitStats.Find("AttackSpeedValue").GetComponent<TextMeshProUGUI>();
             TextMeshProUGUI moveSpeedValue = unitStats.Find("MoveSpeedValue").GetComponent<TextMeshProUGUI>();
             TextMeshProUGUI moveSpeedLabel = unitStats.Find("MoveSpeedLbl").GetComponent<TextMeshProUGUI>();
+            ObjectStatDisplay statManager = singleSelect.Find("HealthBackground").GetComponent<ObjectStatDisplay>();
+            Image healthBar = singleSelect.Find("HealthBackground/Health").GetComponent<Image>();
             SelectableObject selectable = unit.GetComponent<SelectableObject>();
             if (selectable != null)
             {
                 if (selectable.IsDead())
                     singleSelect.gameObject.SetActive(false);
+                statManager.SetSelectedObject(selectable);
                 icon.sprite = selectable.GetBaseStats().Icon;
+                healthBar.fillAmount = selectable.GetCurrentHealth();
                 unitName.text = selectable.GetObjectName();
                 maxHealth.text = selectable.GetBaseStats().baseStats.health.ToString();
                 armor.text = selectable.GetBaseStats().baseStats.armor.ToString();

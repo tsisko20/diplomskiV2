@@ -316,13 +316,47 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: -0.39000034
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3004142770767721303, guid: 1e0244dc9828e9d4db8deed4bcb997f7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1760730187408516731, guid: 1e0244dc9828e9d4db8deed4bcb997f7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2363095221907134973}
   m_SourcePrefab: {fileID: 100100000, guid: 1e0244dc9828e9d4db8deed4bcb997f7, type: 3}
+--- !u!1 &463147686834605595 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1760730187408516731, guid: 1e0244dc9828e9d4db8deed4bcb997f7, type: 3}
+  m_PrefabInstance: {fileID: 2162344204202190944}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2363095221907134973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463147686834605595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ee1d422eca55648bb24f5ecc201c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectable: {fileID: 0}
+  healthBar: {fileID: 6488094735534563442}
 --- !u!224 &3095356069799313253 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3816476786957752069, guid: 1e0244dc9828e9d4db8deed4bcb997f7, type: 3}
   m_PrefabInstance: {fileID: 2162344204202190944}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6488094735534563442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4902281794147452946, guid: 1e0244dc9828e9d4db8deed4bcb997f7, type: 3}
+  m_PrefabInstance: {fileID: 2162344204202190944}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

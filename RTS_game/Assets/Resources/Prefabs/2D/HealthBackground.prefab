@@ -86,12 +86,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1760730187408516731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d36cc6b42811541bd584d71bc22d94, type: 3}
+  m_Script: {fileID: 11500000, guid: b9ee1d422eca55648bb24f5ecc201c63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   selectable: {fileID: 0}
-  maxHealth: 0
-  currentHealth: 0
   healthBar: {fileID: 4902281794147452946}
 --- !u!1 &6998298950447513413
 GameObject:

@@ -46,7 +46,7 @@ namespace RTS.Objects.Buildings
 
         protected override void Die()
         {
-            RTS.InputManager.InputHandler.instance.selectedObjects.Remove(gameObject.GetComponent<Transform>());
+            RTS.InputManager.InputHandler.instance.GetSelectableObjects().Remove(gameObject.GetComponent<Transform>());
             Collider col = GetComponent<Collider>();
             if (col) col.enabled = false;
         }
