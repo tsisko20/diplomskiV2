@@ -1663,7 +1663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1dbe39cc0c89748bfe2a96a14120da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAgressive: 1
 --- !u!114 &5352996148076678869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1677,14 +1676,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redMaterial: {fileID: 2100000, guid: d4333fd9713beec4a9da4803f9c1ea85, type: 2}
-  blueMaterial: {fileID: 2100000, guid: 8211f63d4ac6f5b42aa5180e9942fd58, type: 2}
+  greenMaterial: {fileID: 2100000, guid: 8211f63d4ac6f5b42aa5180e9942fd58, type: 2}
   neutralMaterial: {fileID: 2100000, guid: 7cbac0a435412a84287e55c5f513b858, type: 2}
   rend: {fileID: 9215907524161595266}
   navAgent: {fileID: 0}
   animator: {fileID: 0}
   unitStats: {fileID: 11400000, guid: 2837238b04d0a444a894f9867581c70a, type: 2}
   movingRange: {fileID: 7334506353457166664}
+  combatBehaviour: {fileID: 0}
+  resourceGatherer: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
+  state: 0
 --- !u!137 &9215907524161595266 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -1526964690268444965, guid: bb3d814e68d2c4644a30d2623f1ca817, type: 3}

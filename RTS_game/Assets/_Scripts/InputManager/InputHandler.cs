@@ -1,5 +1,6 @@
 using RTS.InputManager;
 using RTS.Objects;
+using RTS.Objects.Buildings;
 using RTS.Objects.Units;
 using RTS.UI;
 using RTS.Units;
@@ -7,6 +8,7 @@ using RTS.Units.Player;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 namespace RTS.InputManager
 {
     public class InputHandler : MonoBehaviour
@@ -22,6 +24,7 @@ namespace RTS.InputManager
         private const string SELECTION_SPRITE = "selectionSprite";
         private bool hasClickedOnUI = false;
         CombatBehaviour combatBehaviour;
+        ResourceGatherer resourceGatherer;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Awake()
         {
@@ -53,8 +56,7 @@ namespace RTS.InputManager
             // Start drag
             if (Input.GetMouseButtonDown(0))
             {
-                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-                    hasClickedOnUI = true;
+                hasClickedOnUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
                 mousePos = Input.mousePosition;
             }
 
@@ -91,7 +93,10 @@ namespace RTS.InputManager
                 {
                     // Klik selekcija
                     if (hasClickedOnUI)
+                    {
+                        hasClickedOnUI = false;
                         return;
+                    }
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray, out hit))
                     {
@@ -129,21 +134,43 @@ namespace RTS.InputManager
                     foreach (Transform selectedUnit in selectedObjects)
                     {
                         Unit unit = selectedUnit.GetComponent<Unit>();
+                        resourceGatherer = unit.resourceGatherer;
                         if (unit == null || unit.IsDead() || unit.GetTeam() != Team.Player) continue;
 
                         if (attackable != null && attackable.GetTeam() != Team.Player)
                         {
-                            unit.target = attackable;
-                            unit.combatBehaviour.SetAggro(attackable);
+                            if (attackable.GetTeam() != Team.Player)
+                            {
+                                unit.target = attackable;
+                                unit.combatBehaviour.SetAggro(attackable);
+                            }
+                            else
+                            {
+                                unit.target = attackable;
+                                unit.MoveToTarget(hitObj.transform, () => { });
+                            }
+
                         }
-                        else if (gatherable != null)
+                        else if (gatherable != null && resourceGatherer != null)
                         {
                             unit.target = gatherable;
+                            resourceGatherer.SetResourceTarget(gatherable);
                         }
                         else
                         {
-                            unit.target = null;
-                            unit.MoveTo(hit.point);
+                            if (hit.transform.gameObject.layer == 6)
+                            {
+                                unit.target = null;
+                                unit.MoveTo(hit.point);
+                            }
+                            else
+                            {
+                                unit.MoveToTarget(hit.transform, () => { });
+                            }
+                        }
+                        if (gatherable == null && resourceGatherer != null)
+                        {
+                            resourceGatherer.previousTargetLocation = Vector3.zero;
                         }
                     }
                 }

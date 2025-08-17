@@ -16,4 +16,5 @@ MonoBehaviour:
   cooldown: 5
   duration: 5
   caster: {fileID: 0}
+  type: 1
   speedMultiplier: 2

@@ -20,7 +20,7 @@ namespace RTS.Objects.Units
                 {
                     if (attackTarget != null)
                         attackTarget = null;
-                    if (unit.state == UnitState.Idle)
+                    if (unit.state == UnitStates.Idle)
                         SearchForTarget();
                 }
                 else
@@ -32,7 +32,7 @@ namespace RTS.Objects.Units
                         {
                             unit.target = null;
                             attackTarget = null;
-                            unit.ChangeState(UnitState.Idle);
+                            unit.ChangeState(UnitStates.Idle);
                         }
                         else
                         {
@@ -42,17 +42,17 @@ namespace RTS.Objects.Units
 
                             if (distance <= unit.unitStats.baseStats.attackRange)
                             {
-                                if (unit.state == UnitState.Walking)
+                                if (unit.state == UnitStates.Walking)
                                     unit.StopMoving();
                                 AttackTarget();
                             }
                             else
                             {
-                                MoveToTarget();
+                                unit.MoveTo(attackTarget.GetTransform().position);
                             }
                         }
 
-                        if (unit.state == UnitState.Attacking)
+                        if (unit.state == UnitStates.Attacking)
                         {
                             attackCooldown -= Time.deltaTime;
                         }
@@ -73,10 +73,9 @@ namespace RTS.Objects.Units
             foreach (var hit in hits)
             {
                 var potentialTarget = hit.GetComponent<IAttackable>();
-                if (potentialTarget != null && potentialTarget.GetTeam() != unit.GetTeam() && unit.GetTeam() != Team.Neutral && potentialTarget.IsDead() == false)
+                if (potentialTarget != null && potentialTarget.GetTeam() != unit.GetTeam() && potentialTarget.GetTeam() != Team.Neutral && potentialTarget.IsDead() == false)
                 {
-
-
+                    Debug.Log(potentialTarget.GetTeam());
                     SetAggro(potentialTarget);
                     break;
                 }
@@ -85,16 +84,11 @@ namespace RTS.Objects.Units
 
         }
 
-        private void MoveToTarget()
-        {
-            unit.MoveTo(attackTarget.GetTransform().position);
-        }
 
         private void AttackTarget()
         {
-            Debug.Log("prestajem kretnju i pocinjem napdat");
-            if (unit.state != UnitState.Attacking)
-                unit.ChangeState(UnitState.Attacking);
+            if (unit.state != UnitStates.Attacking)
+                unit.ChangeState(UnitStates.Attacking);
             Vector3 directionToTarget = attackTarget.GetTransform().position - transform.position;
             directionToTarget.y = 0f;
             if (directionToTarget != Vector3.zero)

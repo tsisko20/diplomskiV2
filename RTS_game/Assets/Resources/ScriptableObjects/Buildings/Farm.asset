@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfdf58dcd37f6d1429798cb31a555ffd, type: 3}
   m_Name: Farm
   m_EditorClassIdentifier: 
-  type: 0
-  buildingName: 
-  buildingPrefab: {fileID: 0}
-  units:
-    basicUnits: []
   baseStats:
+    cost: 0
+    aggroRange: 0
+    attackRange: 0
+    attackSpeed: 0
+    attackDamage: 0
     health: 50
     armor: 0
-    attack: 0
+  icon: {fileID: 0}
+  type: 0
+  buildingName: Farm House

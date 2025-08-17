@@ -22,7 +22,7 @@ namespace RTS.Ability
             if (abilityTemplate != null && caster != null)
             {
                 abilityInstance = Instantiate(abilityTemplate);
-                abilityInstance.SetCaster(caster);
+                abilityInstance.Setup(caster);
             }
         }
         private void Update()

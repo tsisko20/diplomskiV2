@@ -1,5 +1,6 @@
 using RTS.Objects;
 using RTS.Objects.Units;
+using RTS.UI;
 using UnityEngine;
 
 namespace RTS.Ability
@@ -10,14 +11,18 @@ namespace RTS.Ability
         [SerializeField] private float speedMultiplier;
         private float baseSpeed;
         private Unit unit;
+
+        public override void Setup(SelectableObject selectedObject)
+        {
+            if (selectedObject is Unit)
+            {
+                unit = (Unit)selectedObject;
+            }
+        }
         public override void Activate()
         {
-            if (caster is Unit)
-            {
-                unit = (Unit)caster;
-                baseSpeed = unit.navAgent.speed;
-                unit.navAgent.speed = baseSpeed * speedMultiplier;
-            }
+            baseSpeed = unit.navAgent.speed;
+            unit.navAgent.speed = baseSpeed * speedMultiplier;
         }
 
         public override void Deactivate()
@@ -27,6 +32,7 @@ namespace RTS.Ability
                 unit.navAgent.speed = baseSpeed;
             }
         }
+
     }
 }
 

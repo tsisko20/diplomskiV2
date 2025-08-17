@@ -11,17 +11,11 @@ namespace RTS.Ability
         [SerializeField] protected string abilityName = "Undefined name";
         [SerializeField] protected float cooldown = 0;
         [SerializeField] protected float duration = 0;
-        [SerializeField] protected SelectableObject caster;
-
+        public abstract void Setup(SelectableObject selectedObject);
         public abstract void Activate();
         public abstract void Deactivate();
         public float GetDuration() => duration;
         public float GetCooldown() => cooldown;
-
-        public void SetCaster(SelectableObject _caster)
-        {
-            caster = _caster;
-        }
     }
 }
 

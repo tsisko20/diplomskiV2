@@ -92,7 +92,6 @@ namespace RTS.UI
                     }
                 }
             }
-            Debug.Log("ability grid updated");
 
         }
         private void UpdateSingleSelectData(Transform unit)

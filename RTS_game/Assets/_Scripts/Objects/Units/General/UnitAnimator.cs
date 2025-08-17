@@ -1,6 +1,7 @@
 using RTS.Objects.Units;
 using UnityEngine;
 
+
 public class UnitAnimator : MonoBehaviour
 {
     private Animator animator;
@@ -8,7 +9,7 @@ public class UnitAnimator : MonoBehaviour
     private const string IS_DEAD = "IsDead";
     private const string IS_ATTACKING = "IsAttacking";
     private const string IS_GATHERING = "IsGathering";
-    UnitState currentState;
+    UnitStates currentState;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -32,26 +33,27 @@ public class UnitAnimator : MonoBehaviour
         animator.SetBool(IS_GATHERING, state);
     }
 
-    public void ChangeAnimation(UnitState state)
+    public void ChangeAnimation(UnitStates state)
     {
         ChangeBoolValueInAnimator(currentState, false);
         currentState = state;
         ChangeBoolValueInAnimator(state, true);
     }
 
-    private void ChangeBoolValueInAnimator(UnitState state, bool value)
+    private void ChangeBoolValueInAnimator(UnitStates state, bool value)
     {
         switch (state)
         {
-            case UnitState.Walking:
+            case UnitStates.Walking:
                 PlayWalkingAnimation(value); break;
-            case UnitState.Attacking:
+            case UnitStates.Attacking:
                 PlayAttackAnimation(value); break;
-            case UnitState.Gathering:
+            case UnitStates.Gathering:
+            case UnitStates.Repairing:
                 PlayGatheringAnimation(value); break;
-            case UnitState.Dead:
+            case UnitStates.Dead:
                 PlayDieAnimation(); break;
-            case UnitState.Idle: break;
+            case UnitStates.Idle: break;
         }
     }
 }

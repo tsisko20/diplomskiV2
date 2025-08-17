@@ -18,7 +18,6 @@ public class AbilityButtonUI : MonoBehaviour
 
     public void Setup(float _cdDuration, float _duration)
     {
-        Debug.Log("started cd animation " + _cdDuration);
         cdDuration = _cdDuration;
         duration = _duration;
     }

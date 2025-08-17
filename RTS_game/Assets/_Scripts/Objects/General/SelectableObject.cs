@@ -5,6 +5,7 @@ using RTS.UI;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using static RTS.BasicObject;
 
@@ -13,10 +14,9 @@ namespace RTS.Objects
     public abstract class SelectableObject : MonoBehaviour
     {
         public Material redMaterial;
-        protected Team team;
-        public Material blueMaterial;
+        public Team team;
+        public Material greenMaterial;
         public Material neutralMaterial;
-        public SkinnedMeshRenderer rend;
         protected float health;
         protected float armor;
         protected float attackDamage;
@@ -44,30 +44,42 @@ namespace RTS.Objects
         public abstract bool IsDead();
 
         public Team GetTeam() => team;
-        protected void SetTeam()
+        protected void SetTeamByHierarchy()
         {
             switch (transform.root.name)
             {
-                case "Player": team = Team.Player; break;
-                case "Enemy": team = Team.Enemy; break;
-                default: team = Team.Neutral; break;
+                case "Player":
+                    team = Team.Player;
+                    break;
+                case "Enemy":
+                    team = Team.Enemy;
+                    break;
+                default:
+                    team = Team.Neutral;
+                    break;
             }
         }
-        protected void SetMaterial()
+
+        public void SetTeam(Team _team)
+        {
+            team = _team;
+            SetColor(GetTeamColor());
+        }
+        protected Color GetTeamColor()
         {
             switch (team)
             {
                 case Team.Player:
-                    rend.material = blueMaterial;
-                    break;
+                    return TeamColors.Player;
                 case Team.Enemy:
-                    rend.material = redMaterial;
-                    break;
+                    return TeamColors.Enemy;
                 case Team.Neutral:
-                    rend.material = neutralMaterial;
-                    break;
+                    return TeamColors.Neutral;
             }
+            return Color.white;
         }
+
+        public abstract void SetColor(Color color);
 
         public void TakeDamage(float damage)
         {
