@@ -23,30 +23,38 @@ namespace RTS.Objects.Buildings
         private TeamResourceStorages teamResourceStorages;
         public BuildingState state;
         public bool constructionFinished = false;
+        public NavMeshObstacle navMeshObstacle;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Setup()
         {
 
-            health = buildingStats.baseStats.health;
             SetTeamByHierarchy();
             meshRenderer.material.color = GetTeamColor();
             teamResourceStorages = transform.root.GetComponent<TeamResourceStorages>();
+            navMeshObstacle = transform.GetComponent<NavMeshObstacle>();
         }
 
         private void Start()
         {
             if (state == BuildingState.Init)
             {
-                //boxCollider.enabled = false;
+                health = 5;
+            }
+            else
+            {
+                health = buildingStats.baseStats.health;
             }
         }
 
         public void Update()
         {
-            if (!constructionFinished)
+            if (state == BuildingState.Init)
             {
-
+                if (health == buildingStats.baseStats.health)
+                {
+                    state = BuildingState.Finished;
+                }
             }
         }
 

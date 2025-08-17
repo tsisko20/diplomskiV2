@@ -5,9 +5,22 @@ namespace RTS.Objects.Units
     public class UnitStateMachine
     {
         public UnitState currentState;
-        public void Initialize(UnitState startingState)
+
+        public IdleUnitState idleState;
+        public WalkUnitState walkState;
+        public AttackUnitState attackState;
+        public GatherUnitState gatherState;
+        public ConstructUnitState constructState;
+
+
+        public UnitStateMachine(Unit _unit)
         {
-            currentState = startingState;
+            idleState = new IdleUnitState(_unit, this);
+            walkState = new WalkUnitState(_unit, this);
+            attackState = new AttackUnitState(_unit, this);
+            gatherState = new GatherUnitState(_unit, this);
+            constructState = new ConstructUnitState(_unit, this);
+            currentState = idleState;
             currentState.EnterState();
         }
 
@@ -17,6 +30,7 @@ namespace RTS.Objects.Units
             currentState = newState;
             currentState.EnterState();
         }
+
     }
 }
 

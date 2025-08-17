@@ -52,6 +52,7 @@ public class BuildingConstructor : MonoBehaviour
         var clone = Instantiate(prefab, MouseToFloorPoint(), prefab.transform.rotation);
         _building = clone.GetComponent<Building>();
         _building.state = BuildingState.Init;
+        _building.navMeshObstacle.enabled = false;
         _building.enabled = false;
         _initColor = _building.GetColor();
     }
@@ -163,6 +164,8 @@ public class BuildingConstructor : MonoBehaviour
     {
         _building.meshRenderer.material.color = _initColor;
         _building.SetTeam(RTS.Team.Player);
+        _building.enabled = true;
+        _building.navMeshObstacle.enabled = true;
         ExitConstructionMode();
     }
 

@@ -7,63 +7,63 @@ namespace RTS.Objects.Units
         private Unit unit;
         [SerializeField] private IAttackable attackTarget;
         private float attackCooldown;
-        void Start()
-        {
-            unit = GetComponent<Unit>();
-        }
+        //void Start()
+        //{
+        //    unit = GetComponent<Unit>();
+        //}
 
-        void Update()
-        {
-            if (unit.IsDead() == false)
-            {
-                if (unit.target == null)
-                {
-                    if (attackTarget != null)
-                        attackTarget = null;
-                    if (unit.state == UnitStates.Idle)
-                        SearchForTarget();
-                }
-                else
-                {
-                    if (unit.target is IAttackable)
-                    {
-                        attackTarget = (IAttackable)unit.target;
-                        if (attackTarget.IsDead())
-                        {
-                            unit.target = null;
-                            attackTarget = null;
-                            unit.ChangeState(UnitStates.Idle);
-                        }
-                        else
-                        {
-                            Collider targetCollider = attackTarget.GetTransform().GetComponent<Collider>();
-                            Vector3 closestPoint = targetCollider.ClosestPoint(unit.transform.position);
-                            float distance = Vector3.Distance(unit.transform.position, closestPoint);
+        //void Update()
+        //{
+        //    if (unit.IsDead() == false)
+        //    {
+        //        if (unit.target == null)
+        //        {
+        //            if (attackTarget != null)
+        //                attackTarget = null;
+        //            if (unit.state == UnitStates.Idle)
+        //                SearchForTarget();
+        //        }
+        //        else
+        //        {
+        //            if (unit.target is IAttackable)
+        //            {
+        //                //attackTarget = (IAttackable)unit.target;
+        //                if (attackTarget.IsDead())
+        //                {
+        //                    unit.target = null;
+        //                    attackTarget = null;
+        //                    unit.ChangeState(UnitStates.Idle);
+        //                }
+        //                else
+        //                {
+        //                    Collider targetCollider = attackTarget.GetTransform().GetComponent<Collider>();
+        //                    Vector3 closestPoint = targetCollider.ClosestPoint(unit.transform.position);
+        //                    float distance = Vector3.Distance(unit.transform.position, closestPoint);
 
-                            if (distance <= unit.unitStats.baseStats.attackRange)
-                            {
-                                if (unit.state == UnitStates.Walking)
-                                    unit.StopMoving();
-                                AttackTarget();
-                            }
-                            else
-                            {
-                                unit.MoveTo(attackTarget.GetTransform().position);
-                            }
-                        }
+        //                    if (distance <= unit.unitStats.baseStats.attackRange)
+        //                    {
+        //                        if (unit.state == UnitStates.Walking)
+        //                            unit.StopMoving();
+        //                        AttackTarget();
+        //                    }
+        //                    else
+        //                    {
+        //                        unit.MoveTo(attackTarget.GetTransform().position);
+        //                    }
+        //                }
 
-                        if (unit.state == UnitStates.Attacking)
-                        {
-                            attackCooldown -= Time.deltaTime;
-                        }
-                    }
-                }
-            }
-        }
+        //                if (unit.state == UnitStates.Attacking)
+        //                {
+        //                    attackCooldown -= Time.deltaTime;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         public void SetAggro(IAttackable _target)
         {
-            unit.target = _target;
+            //unit.target = _target;
             attackTarget = _target;
         }
 

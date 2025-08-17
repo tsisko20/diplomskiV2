@@ -9,7 +9,7 @@ public class UnitAnimator : MonoBehaviour
     private const string IS_DEAD = "IsDead";
     private const string IS_ATTACKING = "IsAttacking";
     private const string IS_GATHERING = "IsGathering";
-    UnitStates currentState;
+    public UnitStates currentState;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -31,10 +31,13 @@ public class UnitAnimator : MonoBehaviour
     private void PlayGatheringAnimation(bool state)
     {
         animator.SetBool(IS_GATHERING, state);
+        Debug.Log("gasi: " + state);
     }
 
     public void ChangeAnimation(UnitStates state)
     {
+        if (currentState == state)
+            return;
         ChangeBoolValueInAnimator(currentState, false);
         currentState = state;
         ChangeBoolValueInAnimator(state, true);
@@ -50,7 +53,8 @@ public class UnitAnimator : MonoBehaviour
                 PlayAttackAnimation(value); break;
             case UnitStates.Gathering:
             case UnitStates.Repairing:
-                PlayGatheringAnimation(value); break;
+                PlayGatheringAnimation(value);
+                break;
             case UnitStates.Dead:
                 PlayDieAnimation(); break;
             case UnitStates.Idle: break;

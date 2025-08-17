@@ -6,12 +6,12 @@ namespace RTS.Objects.Units
     public class UnitState
     {
         protected Unit unit;
-        protected UnitStateMachine unitStateMachine;
+        protected UnitStateMachine stateMachine;
 
-        public UnitState(Unit _unit, UnitStateMachine _unitStateMachine)
+        public UnitState(Unit _unit, UnitStateMachine _stateMachine)
         {
             unit = _unit;
-            unitStateMachine = _unitStateMachine;
+            this.stateMachine = _stateMachine;
         }
         public virtual void EnterState() { }
         public virtual void ExitState() { }

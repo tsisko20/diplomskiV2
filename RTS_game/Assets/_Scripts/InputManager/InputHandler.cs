@@ -23,13 +23,10 @@ namespace RTS.InputManager
         private bool mouseStartedOverUI = false;
         private const string SELECTION_SPRITE = "selectionSprite";
         private bool hasClickedOnUI = false;
-        CombatBehaviour combatBehaviour;
-        ResourceGatherer resourceGatherer;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Awake()
         {
             instance = this;
-            combatBehaviour = GetComponent<CombatBehaviour>();
         }
         private void Start()
         {
@@ -129,49 +126,13 @@ namespace RTS.InputManager
                 if (Physics.Raycast(ray, out hit))
                 {
                     Transform hitObj = hit.transform;
-                    IAttackable attackable = hitObj.GetComponent<IAttackable>();
-                    IGatherable gatherable = hitObj.GetComponent<IGatherable>();
                     foreach (Transform selectedUnit in selectedObjects)
                     {
                         Unit unit = selectedUnit.GetComponent<Unit>();
-                        resourceGatherer = unit.resourceGatherer;
                         if (unit == null || unit.IsDead() || unit.GetTeam() != Team.Player) continue;
 
-                        if (attackable != null && attackable.GetTeam() != Team.Player)
-                        {
-                            if (attackable.GetTeam() != Team.Player)
-                            {
-                                unit.target = attackable;
-                                unit.combatBehaviour.SetAggro(attackable);
-                            }
-                            else
-                            {
-                                unit.target = attackable;
-                                unit.MoveToTarget(hitObj.transform, () => { });
-                            }
-
-                        }
-                        else if (gatherable != null && resourceGatherer != null)
-                        {
-                            unit.target = gatherable;
-                            resourceGatherer.SetResourceTarget(gatherable);
-                        }
-                        else
-                        {
-                            if (hit.transform.gameObject.layer == 6)
-                            {
-                                unit.target = null;
-                                unit.MoveTo(hit.point);
-                            }
-                            else
-                            {
-                                unit.MoveToTarget(hit.transform, () => { });
-                            }
-                        }
-                        if (gatherable == null && resourceGatherer != null)
-                        {
-                            resourceGatherer.previousTargetLocation = Vector3.zero;
-                        }
+                        unit.destination = hit.point;
+                        unit.UpdateState(hitObj.gameObject);
                     }
                 }
             }

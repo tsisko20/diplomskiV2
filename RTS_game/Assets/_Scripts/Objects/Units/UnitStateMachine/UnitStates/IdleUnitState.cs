@@ -1,4 +1,6 @@
+using RTS;
 using RTS.Objects.Units;
+using UnityEngine;
 
 public class IdleUnitState : UnitState
 {
@@ -9,6 +11,7 @@ public class IdleUnitState : UnitState
     public override void EnterState()
     {
         unit.animator.ChangeAnimation(UnitStates.Idle);
+
     }
 
     public override void ExitState()
@@ -18,6 +21,23 @@ public class IdleUnitState : UnitState
 
     public override void Update()
     {
-        base.Update();
+        SearchForTarget();
+    }
+
+    void SearchForTarget()
+    {
+        var hits = Physics.OverlapSphere(unit.transform.position, unit.unitStats.baseStats.aggroRange);
+        foreach (var hit in hits)
+        {
+            var potentialTarget = hit.GetComponent<IAttackable>();
+            if (potentialTarget != null && potentialTarget.GetTeam() != unit.GetTeam() && potentialTarget.GetTeam() != Team.Neutral && potentialTarget.IsDead() == false)
+            {
+                unit.target = potentialTarget.GetTransform().gameObject;
+                stateMachine.ChangeState(stateMachine.attackState);
+                break;
+            }
+
+        }
+
     }
 }

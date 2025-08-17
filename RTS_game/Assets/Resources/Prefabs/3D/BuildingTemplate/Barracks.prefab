@@ -293,6 +293,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 4af9ef222d996264794ef88e7393b126, type: 3}
+      propertyPath: m_Name
+      value: model
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 4af9ef222d996264794ef88e7393b126, type: 3}
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
@@ -344,11 +348,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redMaterial: {fileID: 2100000, guid: d4333fd9713beec4a9da4803f9c1ea85, type: 2}
+  team: 0
   greenMaterial: {fileID: 2100000, guid: 8211f63d4ac6f5b42aa5180e9942fd58, type: 2}
   neutralMaterial: {fileID: 2100000, guid: b7317c5bfd941a146a2a8b3c61885574, type: 2}
   buildingStats: {fileID: 11400000, guid: 4adcda06fbdec16418ddd7e458728920, type: 2}
   meshRenderer: {fileID: 7378505724564928005}
   boxCollider: {fileID: 6017391669201770936}
+  state: 2
+  constructionFinished: 0
+  navMeshObstacle: {fileID: 0}
 --- !u!65 &6017391669201770936
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -377,7 +385,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8983773328105570361}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 2.25, y: 1.5, z: 1.25}

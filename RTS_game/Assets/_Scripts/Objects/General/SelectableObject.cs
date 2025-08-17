@@ -98,6 +98,11 @@ namespace RTS.Objects
         public abstract string GetObjectName();
         public float GetCurrentHealth() => health;
 
+        public void IncreaseCurrentHealth(float amount)
+        {
+            health = Mathf.Clamp(health + amount, 0, GetBaseStats().baseStats.health);
+        }
+
         protected abstract void Setup();
 
         public AbilityHolder[] GetAbilityHolders() => abilityHolders;
