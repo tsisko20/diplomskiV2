@@ -1,5 +1,6 @@
 using RTS.InputManager;
 using RTS.Objects.Buildings;
+using RTS.Objects.Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -166,6 +167,11 @@ public class BuildingConstructor : MonoBehaviour
         _building.SetTeam(RTS.Team.Player);
         _building.enabled = true;
         _building.navMeshObstacle.enabled = true;
+        foreach (Transform selected in InputHandler.instance.GetSelectableObjects())
+        {
+            Unit unit = selected.GetComponent<Unit>();
+            unit.UpdateState(_building.gameObject);
+        }
         ExitConstructionMode();
     }
 

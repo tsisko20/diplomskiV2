@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfdf58dcd37f6d1429798cb31a555ffd, type: 3}
   m_Name: ResourceStorage
   m_EditorClassIdentifier: 
-  type: 0
-  buildingName: Farm House
-  buildingPrefab: {fileID: 0}
-  units:
-    basicUnits:
-    - {fileID: 11400000, guid: 37cff9caffc4b7c4ebe83da0591caba4, type: 2}
   baseStats:
+    cost: 100
+    aggroRange: 0
+    attackRange: 0
+    attackSpeed: 0
+    attackDamage: 0
     health: 200
     armor: 10
-    attack: 0
+  icon: {fileID: 0}
+  type: 0
+  buildingName: Farm House

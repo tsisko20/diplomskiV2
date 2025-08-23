@@ -1,4 +1,5 @@
 using RTS;
+using RTS.Ability;
 using RTS.Buildings;
 using RTS.InputManager;
 using UnityEngine;
@@ -31,6 +32,7 @@ namespace RTS.Objects.Buildings
 
             SetTeamByHierarchy();
             meshRenderer.material.color = GetTeamColor();
+            minimapIcon.color = GetTeamColor();
             teamResourceStorages = transform.root.GetComponent<TeamResourceStorages>();
             navMeshObstacle = transform.GetComponent<NavMeshObstacle>();
         }
@@ -40,6 +42,7 @@ namespace RTS.Objects.Buildings
             if (state == BuildingState.Init)
             {
                 health = 5;
+                SetColor(Color.lightGreen);
             }
             else
             {
@@ -54,10 +57,33 @@ namespace RTS.Objects.Buildings
                 if (health == buildingStats.baseStats.health)
                 {
                     state = BuildingState.Finished;
+                    SetColor(GetTeamColor());
                 }
             }
         }
 
+        public override AbilityHolder[] GetAbilityHolders()
+        {
+            if (state == BuildingState.Finished)
+            {
+                return abilityHolders;
+            }
+            else
+            {
+                return new AbilityHolder[0];
+            }
+        }
+
+        public void TakeDamage(float damage)
+        {
+
+            float totalDamage = damage - (damage * (armor / 100));
+            health -= totalDamage;
+            if (health <= 0)
+            {
+                Die();
+            }
+        }
 
         public override string GetObjectName()
         {

@@ -236,6 +236,73 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6639311982078738482, guid: ebaab0bdd6d703046a29ded7d1ffb151, type: 3}
   m_PrefabInstance: {fileID: 1913192335368560206}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5346869101278198829
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8639899230597339779}
+    m_Modifications:
+    - target: {fileID: 1290361123457431708, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_Name
+      value: MinimapBuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+--- !u!4 &1449826227334340167 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+  m_PrefabInstance: {fileID: 5346869101278198829}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &2694459914829562651 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8022951742247337782, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+  m_PrefabInstance: {fileID: 5346869101278198829}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8101324748028493160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -309,6 +376,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4af9ef222d996264794ef88e7393b126, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5093172437355912828}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4af9ef222d996264794ef88e7393b126, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1449826227334340167}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4af9ef222d996264794ef88e7393b126, type: 3}
       insertIndex: -1
@@ -351,6 +421,7 @@ MonoBehaviour:
   team: 0
   greenMaterial: {fileID: 2100000, guid: 8211f63d4ac6f5b42aa5180e9942fd58, type: 2}
   neutralMaterial: {fileID: 2100000, guid: b7317c5bfd941a146a2a8b3c61885574, type: 2}
+  minimapIcon: {fileID: 2694459914829562651}
   buildingStats: {fileID: 11400000, guid: 4adcda06fbdec16418ddd7e458728920, type: 2}
   meshRenderer: {fileID: 7378505724564928005}
   boxCollider: {fileID: 6017391669201770936}
@@ -390,7 +461,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 2.25, y: 1.5, z: 1.25}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.74, z: 0}
   m_TimeToStationary: 0.5

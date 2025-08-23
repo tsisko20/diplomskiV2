@@ -11,6 +11,7 @@ namespace RTS.Objects.Units
         public AttackUnitState attackState;
         public GatherUnitState gatherState;
         public ConstructUnitState constructState;
+        public DeadUnitState deadState;
 
 
         public UnitStateMachine(Unit _unit)
@@ -20,6 +21,7 @@ namespace RTS.Objects.Units
             attackState = new AttackUnitState(_unit, this);
             gatherState = new GatherUnitState(_unit, this);
             constructState = new ConstructUnitState(_unit, this);
+            deadState = new DeadUnitState(_unit, this);
             currentState = idleState;
             currentState.EnterState();
         }

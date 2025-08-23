@@ -23,7 +23,8 @@ namespace RTS.Objects
         protected float attackRange;
         protected float attackSpeed;
         protected float moveSpeed;
-        private AbilityHolder[] abilityHolders;
+        protected AbilityHolder[] abilityHolders;
+        public SpriteRenderer minimapIcon;
 
         private void Awake()
         {
@@ -81,16 +82,7 @@ namespace RTS.Objects
 
         public abstract void SetColor(Color color);
 
-        public void TakeDamage(float damage)
-        {
 
-            float totalDamage = damage - (damage * (armor / 100));
-            health -= totalDamage;
-            if (health <= 0)
-            {
-                Die();
-            }
-        }
 
         protected abstract void Die();
 
@@ -105,7 +97,7 @@ namespace RTS.Objects
 
         protected abstract void Setup();
 
-        public AbilityHolder[] GetAbilityHolders() => abilityHolders;
+        public virtual AbilityHolder[] GetAbilityHolders() => abilityHolders;
 
         private void OnMouseEnter()
         {

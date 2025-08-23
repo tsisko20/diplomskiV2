@@ -38,7 +38,6 @@ namespace RTS.Objects.Units
         public GameObject target;
         public SkinnedMeshRenderer rend;
         private delegate void InteractWithTarget();
-
         public UnitStateMachine stateMachine;
 
 
@@ -54,6 +53,7 @@ namespace RTS.Objects.Units
             SetTeamByHierarchy();
             SetBuildingConstructor();
             rend.material.color = GetTeamColor();
+            minimapIcon.color = GetTeamColor();
             health = unitStats.baseStats.health;
             stateMachine = new UnitStateMachine(this);
         }
@@ -126,6 +126,17 @@ namespace RTS.Objects.Units
                 Debug.Log("moze se gatherati");
                 stateMachine.ChangeState(stateMachine.gatherState);
                 return;
+            }
+        }
+
+        public void TakeDamage(float damage)
+        {
+
+            float totalDamage = damage - (damage * (armor / 100));
+            health -= totalDamage;
+            if (health <= 0)
+            {
+                stateMachine.ChangeState(stateMachine.deadState);
             }
         }
 

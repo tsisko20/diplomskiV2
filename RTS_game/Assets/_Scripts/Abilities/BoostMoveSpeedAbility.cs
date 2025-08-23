@@ -21,8 +21,11 @@ namespace RTS.Ability
         }
         public override void Activate()
         {
-            baseSpeed = unit.navAgent.speed;
-            unit.navAgent.speed = baseSpeed * speedMultiplier;
+            if (unit != null)
+            {
+                baseSpeed = unit.navAgent.speed;
+                unit.navAgent.speed = baseSpeed * speedMultiplier;
+            }
         }
 
         public override void Deactivate()

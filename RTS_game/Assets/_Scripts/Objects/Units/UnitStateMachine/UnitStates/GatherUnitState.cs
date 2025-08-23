@@ -203,7 +203,7 @@ public class GatherUnitState : UnitState
 
     private void MoveToResource()
     {
-        unit.MoveTo(unit.target.transform.position);
+        unit.MoveTo(closestResource.position);
     }
 
     private void GatherResource()

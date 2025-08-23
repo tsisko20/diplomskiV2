@@ -35,4 +35,14 @@ public class TeamResourceStorages : MonoBehaviour
                 resourceUI.UpdateResValueUI(resourceType, woodCount); break;
         }
     }
+
+    public int GetGoldCount()
+    {
+        return goldCount;
+    }
+
+    public int GetWoodCount()
+    {
+        return woodCount;
+    }
 }
