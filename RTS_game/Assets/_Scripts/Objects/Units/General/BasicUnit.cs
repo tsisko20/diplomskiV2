@@ -11,6 +11,7 @@ namespace RTS.Units
         public UnitType unitType;
         public string unitName;
         [SerializeField] private float moveSpeed;
+        public float recruitTime;
 
         public float GetMoveSpeed()
         {

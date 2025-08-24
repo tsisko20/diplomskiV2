@@ -20,23 +20,25 @@ public class PlaceBuildingAbility : AbilityBase
         {
             unit = (Unit)selectedObject;
         }
-        buildingCost = building.GetComponent<Building>().GetBaseStats().baseStats.cost;
+        if (building.layer == 8)
+            buildingCost = building.GetComponent<Building>().GetBaseStats().baseStats.goldCost;
+
+        switch (unit.tag)
+        {
+            case "Player":
+                teamResourceStorages = ResourceHandler.instance.playerResStorage;
+                break;
+            case "Enemy":
+                teamResourceStorages = ResourceHandler.instance.enemyResStorage;
+                break;
+        }
     }
 
     public override void Activate()
     {
-        switch (unit.GetTeam())
-        {
-            case Team.Player:
-                teamResourceStorages = ResourceHandler.instance.playerResStorage;
-                break;
-            case Team.Enemy:
-                teamResourceStorages = ResourceHandler.instance.enemyResStorage;
-                break;
-        }
+
         if (teamResourceStorages.GetGoldCount() >= buildingCost)
         {
-            teamResourceStorages.UpdateResCount(ResourceType.Gold, (int)-buildingCost);
             unit.buildingConstructor.EnterConstructionMode(building);
         }
     }

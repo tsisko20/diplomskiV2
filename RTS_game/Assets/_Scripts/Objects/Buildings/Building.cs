@@ -25,6 +25,7 @@ namespace RTS.Objects.Buildings
         public BuildingState state;
         public bool constructionFinished = false;
         public NavMeshObstacle navMeshObstacle;
+        public Recruiter recruiter;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Setup()
@@ -35,6 +36,7 @@ namespace RTS.Objects.Buildings
             minimapIcon.color = GetTeamColor();
             teamResourceStorages = transform.root.GetComponent<TeamResourceStorages>();
             navMeshObstacle = transform.GetComponent<NavMeshObstacle>();
+            recruiter = gameObject.GetComponent<Recruiter>();
         }
 
         private void Start()
@@ -73,6 +75,8 @@ namespace RTS.Objects.Buildings
                 return new AbilityHolder[0];
             }
         }
+
+        public override string GetTeam() => gameObject.tag;
 
         public void TakeDamage(float damage)
         {

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f638b8773d5222343ab518b650d1fa73, type: 3}
+  m_Name: RecruitArcher
+  m_EditorClassIdentifier: 
+  abilityName: Recruit Archer
+  cooldown: 0
+  duration: 0
+  unit: {fileID: 1867643048137161736, guid: 260b24f72c6c31a4380f4a94076c7b2c, type: 3}

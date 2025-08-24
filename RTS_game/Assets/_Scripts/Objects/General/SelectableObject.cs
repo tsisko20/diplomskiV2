@@ -14,7 +14,6 @@ namespace RTS.Objects
     public abstract class SelectableObject : MonoBehaviour
     {
         public Material redMaterial;
-        public Team team;
         public Material greenMaterial;
         public Material neutralMaterial;
         protected float health;
@@ -44,37 +43,32 @@ namespace RTS.Objects
 
         public abstract bool IsDead();
 
-        public Team GetTeam() => team;
-        protected void SetTeamByHierarchy()
+        public void SetTeamByHierarchy()
         {
             switch (transform.root.name)
             {
                 case "Player":
-                    team = Team.Player;
-                    break;
                 case "Enemy":
-                    team = Team.Enemy;
-                    break;
-                default:
-                    team = Team.Neutral;
+                case "Neutral":
+                    gameObject.tag = transform.root.name;
                     break;
             }
+            SetColor(GetTeamColor());
         }
 
-        public void SetTeam(Team _team)
+        public void SetTeam(string team)
         {
-            team = _team;
-            SetColor(GetTeamColor());
+            gameObject.tag = team;
         }
         protected Color GetTeamColor()
         {
-            switch (team)
+            switch (gameObject.tag)
             {
-                case Team.Player:
+                case "Player":
                     return TeamColors.Player;
-                case Team.Enemy:
+                case "Enemy":
                     return TeamColors.Enemy;
-                case Team.Neutral:
+                case "Neutral":
                     return TeamColors.Neutral;
             }
             return Color.white;
@@ -101,18 +95,20 @@ namespace RTS.Objects
 
         private void OnMouseEnter()
         {
-            if (team == Team.Enemy)
+            if (gameObject.tag == "Enemy")
             {
                 if (InputHandler.instance.IsPlayerSelected())
                     CursorManager.instance.SetActiveCursorType(CursorType.Attack);
                 else
                     CursorManager.instance.SetActiveCursorType(CursorType.EnemyBasic);
             }
-            if (team == Team.Player)
+            if (gameObject.tag == "Player")
             {
                 CursorManager.instance.SetActiveCursorType(CursorType.PlayerBasic);
             }
         }
+
+        public abstract string GetTeam();
 
         private void OnMouseExit()
         {

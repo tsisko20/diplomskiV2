@@ -129,7 +129,7 @@ namespace RTS.InputManager
                     foreach (Transform selectedUnit in selectedObjects)
                     {
                         Unit unit = selectedUnit.GetComponent<Unit>();
-                        if (unit == null || unit.IsDead() || unit.GetTeam() != Team.Player) continue;
+                        if (unit == null || unit.IsDead() || unit.GetTeam() != "Player") continue;
 
                         unit.destination = hit.point;
                         unit.UpdateState(hitObj.gameObject);
@@ -193,7 +193,7 @@ namespace RTS.InputManager
             SelectableObject selectable = selectedObjects[0].GetComponent<SelectableObject>();
             if (selectable != null)
             {
-                return selectable.GetTeam() == Team.Player;
+                return selectable.GetTeam() == "Player";
             }
             return false;
         }

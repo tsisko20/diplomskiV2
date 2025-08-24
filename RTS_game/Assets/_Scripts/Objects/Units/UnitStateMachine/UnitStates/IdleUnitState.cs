@@ -30,7 +30,7 @@ public class IdleUnitState : UnitState
         foreach (var hit in hits)
         {
             var potentialTarget = hit.GetComponent<IAttackable>();
-            if (potentialTarget != null && potentialTarget.GetTeam() != unit.GetTeam() && potentialTarget.GetTeam() != Team.Neutral && potentialTarget.IsDead() == false)
+            if (potentialTarget != null && potentialTarget.GetTeam() != unit.GetTeam() && potentialTarget.GetTeam() != "Neutral" && potentialTarget.IsDead() == false)
             {
                 unit.target = potentialTarget.GetTransform().gameObject;
                 stateMachine.ChangeState(stateMachine.attackState);

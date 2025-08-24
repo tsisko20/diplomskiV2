@@ -1694,13 +1694,13 @@ PrefabInstance:
       addedObject: {fileID: 2390193780121323369}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dff32c648ed02d4da6eb7ab4702f33c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1697603528090808835}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dff32c648ed02d4da6eb7ab4702f33c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7641009930769474005}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dff32c648ed02d4da6eb7ab4702f33c, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5152790022385802875}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dff32c648ed02d4da6eb7ab4702f33c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6023232856505218920}
   m_SourcePrefab: {fileID: 100100000, guid: 7dff32c648ed02d4da6eb7ab4702f33c, type: 3}
 --- !u!137 &1927413773579429670 stripped
 SkinnedMeshRenderer:
@@ -1841,7 +1841,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redMaterial: {fileID: 2100000, guid: d4333fd9713beec4a9da4803f9c1ea85, type: 2}
-  team: 0
   greenMaterial: {fileID: 2100000, guid: 8211f63d4ac6f5b42aa5180e9942fd58, type: 2}
   neutralMaterial: {fileID: 2100000, guid: 7cbac0a435412a84287e55c5f513b858, type: 2}
   minimapIcon: {fileID: 1545618815430758713}
@@ -1849,7 +1848,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   unitStats: {fileID: 11400000, guid: 37cff9caffc4b7c4ebe83da0591caba4, type: 2}
   movingRange: {fileID: 8300497924587952738}
-  combatBehaviour: {fileID: 0}
   resourceGatherer: {fileID: 0}
   buildingConstructor: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
@@ -1869,18 +1867,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
---- !u!114 &1697603528090808835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6384201335879838320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba1dbe39cc0c89748bfe2a96a14120da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7641009930769474005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1915,3 +1901,16 @@ MonoBehaviour:
   activeCooldown: 0
   buttonPrefab: {fileID: 1537048188674838020, guid: fe04c8fffb704aa478e09168e900f366, type: 3}
   buttonUI: {fileID: 0}
+--- !u!114 &6023232856505218920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6384201335879838320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01f76edfa7e78c40bd987e38186853e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 1

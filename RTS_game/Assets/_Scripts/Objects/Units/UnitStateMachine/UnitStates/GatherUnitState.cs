@@ -27,12 +27,12 @@ public class GatherUnitState : UnitState
 
     public override void EnterState()
     {
-        switch (unit.GetTeam())
+        switch (unit.tag)
         {
-            case Team.Player:
+            case "Player":
                 teamResourceStorages = ResourceHandler.instance.playerResStorage;
                 break;
-            case Team.Enemy:
+            case "Enemy":
                 teamResourceStorages = ResourceHandler.instance.enemyResStorage;
                 break;
         }

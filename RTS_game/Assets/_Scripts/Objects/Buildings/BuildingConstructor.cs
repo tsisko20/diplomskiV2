@@ -3,6 +3,7 @@ using RTS.Objects.Buildings;
 using RTS.Objects.Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public enum ConstructionState
 {
@@ -30,6 +31,7 @@ public class BuildingConstructor : MonoBehaviour
     Vector3 _initEulers;
     Vector2 _initPointerPos;
     Building _building;
+    TeamResourceStorages teamResourceStorages;
 
     private void OnEnable()
     {
@@ -44,6 +46,11 @@ public class BuildingConstructor : MonoBehaviour
         leftClick.Disable();
         rightClick.Disable();
         cancelInput.Disable();
+    }
+
+    private void Start()
+    {
+        teamResourceStorages = ResourceHandler.instance.playerResStorage;
     }
 
     public void EnterConstructionMode(GameObject prefab)
@@ -164,7 +171,7 @@ public class BuildingConstructor : MonoBehaviour
     void ConstructBuilding()
     {
         _building.meshRenderer.material.color = _initColor;
-        _building.SetTeam(RTS.Team.Player);
+        _building.SetTeam("Player");
         _building.enabled = true;
         _building.navMeshObstacle.enabled = true;
         foreach (Transform selected in InputHandler.instance.GetSelectableObjects())
@@ -172,6 +179,8 @@ public class BuildingConstructor : MonoBehaviour
             Unit unit = selected.GetComponent<Unit>();
             unit.UpdateState(_building.gameObject);
         }
+        float buildingCost = _building.GetBaseStats().baseStats.goldCost;
+        teamResourceStorages.UpdateResCount(ResourceType.Gold, (int)-buildingCost);
         ExitConstructionMode();
     }
 

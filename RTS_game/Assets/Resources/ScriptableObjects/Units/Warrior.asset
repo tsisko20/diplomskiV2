@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   baseStats:
-    cost: 100
+    goldCost: 100
+    woodCost: 0
     aggroRange: 5
     attackRange: 1
     attackSpeed: 2
@@ -24,3 +25,4 @@ MonoBehaviour:
   unitType: 1
   unitName: Warrior
   moveSpeed: 3
+  recruitTime: 7

@@ -6,7 +6,7 @@ public class MineResource : MonoBehaviour, IGatherable
 
     private void Start()
     {
-        health = 100;
+        health = 10000;
     }
     public ResourceType GetResourceType()
     {

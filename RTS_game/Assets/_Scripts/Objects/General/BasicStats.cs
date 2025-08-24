@@ -12,7 +12,7 @@ namespace RTS
         [System.Serializable]
         public class Base
         {
-            public float cost, aggroRange, attackRange, attackSpeed, attackDamage, health, armor;
+            public float goldCost, woodCost, aggroRange, attackRange, attackSpeed, attackDamage, health, armor;
 
         }
     }

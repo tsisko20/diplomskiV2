@@ -22,7 +22,6 @@ namespace RTS.Objects.Units
     }
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(UnitAnimator))]
-    [RequireComponent(typeof(CombatBehaviour))]
     public class Unit : SelectableObject, IAttackable
     {
 
@@ -30,7 +29,6 @@ namespace RTS.Objects.Units
         public UnitAnimator animator;
         public BasicUnit unitStats;
         public MovingRange movingRange;
-        public CombatBehaviour combatBehaviour;
         public ResourceGatherer resourceGatherer;
         public BuildingConstructor buildingConstructor;
         public Vector3 destination;
@@ -47,7 +45,6 @@ namespace RTS.Objects.Units
         {
             navAgent = GetComponent<NavMeshAgent>();
             animator = GetComponent<UnitAnimator>();
-            combatBehaviour = GetComponent<CombatBehaviour>();
             resourceGatherer = GetComponent<ResourceGatherer>();
             navAgent.speed = unitStats.GetMoveSpeed();
             SetTeamByHierarchy();
@@ -101,11 +98,10 @@ namespace RTS.Objects.Units
             }
             if (target.GetComponent<IAttackable>() != null)
             {
-                if (target.GetComponent<IAttackable>().GetTeam() != team)
+                if (target.tag != gameObject.tag)
                 {
                     stateMachine.ChangeState(stateMachine.attackState);
                     return;
-
                 }
                 else
                 {
@@ -129,6 +125,7 @@ namespace RTS.Objects.Units
             }
         }
 
+        public override string GetTeam() => gameObject.tag;
         public void TakeDamage(float damage)
         {
 
@@ -179,7 +176,6 @@ namespace RTS.Objects.Units
         public void StopMoving()
         {
             navAgent.isStopped = true;
-            combatBehaviour = GetComponent<CombatBehaviour>();
         }
 
         public Transform GetTransform() => transform;
@@ -197,11 +193,11 @@ namespace RTS.Objects.Units
 
         private void SetBuildingConstructor()
         {
-            switch (team)
+            switch (gameObject.tag)
             {
-                case Team.Player:
+                case "Player":
                     buildingConstructor = GameObject.Find("Player").GetComponent<BuildingConstructor>(); break;
-                case Team.Enemy:
+                case "Enemy":
                     buildingConstructor = GameObject.Find("Enemy").GetComponent<BuildingConstructor>(); break;
             }
         }
@@ -209,4 +205,3 @@ namespace RTS.Objects.Units
 
     }
 }
-

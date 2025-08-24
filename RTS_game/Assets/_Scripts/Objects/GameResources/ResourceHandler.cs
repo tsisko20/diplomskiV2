@@ -37,4 +37,19 @@ public class ResourceHandler : MonoBehaviour
                 enemyResStorage.UpdateResCount(resType, value); break;
         }
     }
+    private TeamResourceStorages GetTeamStorageByTag(string team)
+    {
+        switch (team)
+        {
+            case "Player":
+                return playerResStorage; break;
+            case "Enemy":
+                return enemyResStorage; break;
+            default: return null;
+        }
+    }
+    public static TeamResourceStorages GetTeamStorage(string team)
+    {
+        return instance.GetTeamStorageByTag(team);
+    }
 }

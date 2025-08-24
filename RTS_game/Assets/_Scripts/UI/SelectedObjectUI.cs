@@ -1,9 +1,11 @@
 using RTS.Ability;
 using RTS.Objects;
+using RTS.Objects.Buildings;
 using RTS.Objects.Units;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Rendering.BuiltIn.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
@@ -96,6 +98,7 @@ namespace RTS.UI
         }
         private void UpdateSingleSelectData(Transform unit)
         {
+            RecruitPanelUI.instance.DeleteChildren();
             Transform unitStats = singleSelect.Find("UnitStats");
             Image icon = singleSelect.Find("UnitIcon").GetComponent<Image>();
             TextMeshProUGUI unitName = singleSelect.Find("UnitName").GetComponent<TextMeshProUGUI>();
@@ -135,6 +138,11 @@ namespace RTS.UI
                     moveSpeedValue.gameObject.SetActive(false);
                     moveSpeedValue.text = "0";
                 }
+                Building buildingObject = selectable as Building;
+                if (buildingObject != null)
+                {
+                    RecruitPanelUI.instance.Setup(buildingObject.GetComponent<Recruiter>());
+                }
             }
 
         }
@@ -165,4 +173,3 @@ namespace RTS.UI
         }
     }
 }
-

@@ -29,10 +29,12 @@ public class TeamResourceStorages : MonoBehaviour
         {
             case ResourceType.Gold:
                 goldCount += value;
-                resourceUI.UpdateResValueUI(resourceType, goldCount); break;
+                if (gameObject.tag == "Player")
+                    resourceUI.UpdateResValueUI(resourceType, goldCount); break;
             case ResourceType.Wood:
                 woodCount += value;
-                resourceUI.UpdateResValueUI(resourceType, woodCount); break;
+                if (gameObject.tag == "Player")
+                    resourceUI.UpdateResValueUI(resourceType, woodCount); break;
         }
     }
 
