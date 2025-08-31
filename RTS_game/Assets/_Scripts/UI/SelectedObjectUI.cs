@@ -14,6 +14,7 @@ namespace RTS.UI
 {
     public class SelectedObjectUI : MonoBehaviour
     {
+        public static SelectedObjectUI instance;
         [SerializeField] private Transform singleSelect;
         [SerializeField] private Transform multiSelect;
         [SerializeField] private Transform abilityGrid;
@@ -32,6 +33,11 @@ namespace RTS.UI
 
         //}
 
+        public void Awake()
+        {
+            instance = this;
+        }
+
         private void Update()
         {
             if (singleSelect.gameObject.activeInHierarchy)
@@ -39,8 +45,12 @@ namespace RTS.UI
 
             }
         }
+        public static void UpdateUI(List<Transform> units)
+        {
+            instance.UpdateSelectionUI(units);
+        }
 
-        public void UpdateSelectionUI(List<Transform> units)
+        private void UpdateSelectionUI(List<Transform> units)
         {
             switch (units.Count)
             {
@@ -141,7 +151,12 @@ namespace RTS.UI
                 Building buildingObject = selectable as Building;
                 if (buildingObject != null)
                 {
+                    RecruitPanelUI.instance.gameObject.SetActive(true);
                     RecruitPanelUI.instance.Setup(buildingObject.GetComponent<Recruiter>());
+                }
+                else
+                {
+                    RecruitPanelUI.instance.gameObject.SetActive(false);
                 }
             }
 

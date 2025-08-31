@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using RTS.Buildings;
 using RTS.InputManager;
 using RTS.Objects.Buildings;
 using RTS.Units;
@@ -29,7 +30,6 @@ namespace RTS.Objects.Units
         public UnitAnimator animator;
         public BasicUnit unitStats;
         public MovingRange movingRange;
-        public ResourceGatherer resourceGatherer;
         public BuildingConstructor buildingConstructor;
         public Vector3 destination;
         public UnitStates state;
@@ -45,11 +45,10 @@ namespace RTS.Objects.Units
         {
             navAgent = GetComponent<NavMeshAgent>();
             animator = GetComponent<UnitAnimator>();
-            resourceGatherer = GetComponent<ResourceGatherer>();
+            movingRange = transform.Find("MovingRange").GetComponent<MovingRange>();
             navAgent.speed = unitStats.GetMoveSpeed();
             SetTeamByHierarchy();
             SetBuildingConstructor();
-            rend.material.color = GetTeamColor();
             minimapIcon.color = GetTeamColor();
             health = unitStats.baseStats.health;
             stateMachine = new UnitStateMachine(this);
@@ -63,27 +62,6 @@ namespace RTS.Objects.Units
         void Update()
         {
             stateMachine.currentState.Update();
-            //if (state == UnitStates.Walking && !navAgent.pathPending && navAgent.hasPath)
-            //{
-
-            //    if (navAgent.remainingDistance <= navAgent.stoppingDistance)
-            //    {
-            //        Debug.Log("stop 1");
-            //        StopMoving();
-            //    }
-            //    else
-            //    {
-            //        foreach (Unit unitInMovingRange in movingRange.GetUnitsInMovingRange())
-            //        {
-
-            //            if (unitInMovingRange.GetCurrentDestination() == GetCurrentDestination() && unitInMovingRange.state != UnitStates.Walking && target == null)
-            //            {
-            //                Debug.Log("stop 2");
-            //                StopMoving();
-            //            }
-            //        }
-            //    }
-            //}
         }
 
         public void UpdateState(GameObject _target)
@@ -119,10 +97,16 @@ namespace RTS.Objects.Units
             }
             if (target.GetComponent<IGatherable>() != null && unitStats.unitType == UnitType.Worker)
             {
-                Debug.Log("moze se gatherati");
                 stateMachine.ChangeState(stateMachine.gatherState);
                 return;
             }
+        }
+
+        protected override string GetInstanceDestination()
+        {
+            string parentFolder = unitStats.unitName + "s";
+            string root = gameObject.tag;
+            return $"{gameObject.tag}/Units/{parentFolder}";
         }
 
         public override string GetTeam() => gameObject.tag;
@@ -152,19 +136,9 @@ namespace RTS.Objects.Units
             return navAgent.destination;
         }
 
-
-
-        protected override void Die()
+        public void Heal(float amount)
         {
-            InputManager.InputHandler.instance.GetSelectableObjects().Remove(gameObject.GetComponent<Transform>());
-            navAgent.isStopped = true;
-            navAgent.ResetPath();
-            ChangeState(UnitStates.Dead);
-            Collider col = GetComponent<Collider>();
-            if (col) col.enabled = false;
-            Transform movingRange = transform.Find("MovingRange");
-            movingRange.gameObject.SetActive(false);
-            //Destroy(gameObject);
+            health += amount;
         }
         public override bool IsDead() => health <= 0;
         public void MoveTo(Vector3 destination)

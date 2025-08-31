@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
+    public static CameraControl instance { get; private set; }
     [SerializeField] private Vector3 lowerLimits;
     [SerializeField] private Vector3 upperLimits;
     [SerializeField] private float scrollSpeed;
@@ -11,21 +12,22 @@ public class CameraControl : MonoBehaviour
     [SerializeField] float panBorderThickness = 10f;
     private bool shouldMoveCamera = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    void Awake()
     {
-        
+        instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space)) 
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             shouldMoveCamera = !shouldMoveCamera;
         }
-        if (shouldMoveCamera) 
+        if (shouldMoveCamera)
         {
-            HandleCameraMovement();   
+            HandleCameraMovement();
         }
     }
     private void HandleCameraMovement()
@@ -54,4 +56,13 @@ public class CameraControl : MonoBehaviour
         newPosition.z = Mathf.Clamp(newPosition.z, lowerLimits.z, upperLimits.z);
         transform.position = newPosition;
     }
+    public static void ToogleCameraControl()
+    {
+        instance.shouldMoveCamera = !instance.shouldMoveCamera;
+    }
+
+    public static bool IsCameraControllOn() => instance.shouldMoveCamera;
+
+    public static Vector3 GetLowerLimits() => instance.lowerLimits;
+    public static Vector3 GetUpperLimits() => instance.upperLimits;
 }

@@ -1567,7 +1567,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.93
-  m_BaseOffset: 0
+  m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!95 &6662401325933807451
@@ -1675,7 +1675,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   unitStats: {fileID: 11400000, guid: 2837238b04d0a444a894f9867581c70a, type: 2}
   movingRange: {fileID: 7334506353457166664}
-  resourceGatherer: {fileID: 0}
   buildingConstructor: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   state: 0

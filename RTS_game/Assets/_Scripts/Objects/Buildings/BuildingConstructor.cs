@@ -174,7 +174,7 @@ public class BuildingConstructor : MonoBehaviour
         _building.SetTeam("Player");
         _building.enabled = true;
         _building.navMeshObstacle.enabled = true;
-        foreach (Transform selected in InputHandler.instance.GetSelectableObjects())
+        foreach (Transform selected in InputHandler.GetSelectableObjects())
         {
             Unit unit = selected.GetComponent<Unit>();
             unit.UpdateState(_building.gameObject);

@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using RTS.Ability;
 using RTS.InputManager;
+using RTS.Objects.Buildings;
 using RTS.UI;
 using System.Collections.Generic;
 using UnityEditor;
@@ -24,9 +25,11 @@ namespace RTS.Objects
         protected float moveSpeed;
         protected AbilityHolder[] abilityHolders;
         public SpriteRenderer minimapIcon;
+        private Image healthBar;
 
         private void Awake()
         {
+            healthBar = transform.Find("StatsCanvas/HealthBackground/Health").GetComponent<Image>();
             Setup();
             abilityHolders = GetComponents<AbilityHolder>();
         }
@@ -52,14 +55,25 @@ namespace RTS.Objects
                 case "Neutral":
                     gameObject.tag = transform.root.name;
                     break;
+                default: gameObject.tag = "Neutral"; break;
             }
-            SetColor(GetTeamColor());
+            GameObject parentFolderRoot;
+            parentFolderRoot = GameObject.Find(GetInstanceDestination());
+            transform.SetParent(parentFolderRoot.transform);
+            healthBar.color = GetTeamColor();
         }
 
         public void SetTeam(string team)
         {
             gameObject.tag = team;
+            GameObject parentFolderRoot;
+            parentFolderRoot = GameObject.Find(GetInstanceDestination());
+            transform.SetParent(parentFolderRoot.transform);
+            healthBar.color = GetTeamColor();
         }
+
+        protected abstract string GetInstanceDestination();
+
         protected Color GetTeamColor()
         {
             switch (gameObject.tag)
@@ -73,13 +87,7 @@ namespace RTS.Objects
             }
             return Color.white;
         }
-
         public abstract void SetColor(Color color);
-
-
-
-        protected abstract void Die();
-
         public abstract BasicObject GetBaseStats();
         public abstract string GetObjectName();
         public float GetCurrentHealth() => health;

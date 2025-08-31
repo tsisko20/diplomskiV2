@@ -7,6 +7,7 @@ public class UnitAnimator : MonoBehaviour
     private Animator animator;
     private const string IS_WALKING = "IsWalking";
     private const string IS_DEAD = "IsDead";
+    private const string IS_REVIVED = "IsRevived";
     private const string IS_ATTACKING = "IsAttacking";
     private const string IS_GATHERING = "IsGathering";
     public UnitStates currentState;
@@ -18,6 +19,10 @@ public class UnitAnimator : MonoBehaviour
     private void PlayDieAnimation()
     {
         animator.SetTrigger(IS_DEAD);
+    }
+    private void ReviveUnit()
+    {
+        animator.SetTrigger(IS_REVIVED);
     }
     private void PlayWalkingAnimation(bool state)
     {
@@ -39,8 +44,8 @@ public class UnitAnimator : MonoBehaviour
         if (currentState == state)
             return;
         ChangeBoolValueInAnimator(currentState, false);
-        currentState = state;
         ChangeBoolValueInAnimator(state, true);
+        currentState = state;
     }
 
     private void ChangeBoolValueInAnimator(UnitStates state, bool value)
@@ -56,8 +61,12 @@ public class UnitAnimator : MonoBehaviour
                 PlayGatheringAnimation(value);
                 break;
             case UnitStates.Dead:
-                PlayDieAnimation(); break;
-            case UnitStates.Idle: break;
+                if (value == true)
+                    PlayDieAnimation(); break;
+            case UnitStates.Idle:
+                if (currentState == UnitStates.Dead)
+                    ReviveUnit();
+                break;
         }
     }
 }

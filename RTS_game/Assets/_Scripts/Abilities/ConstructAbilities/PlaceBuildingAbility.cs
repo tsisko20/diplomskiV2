@@ -10,7 +10,8 @@ using UnityEngine;
 public class PlaceBuildingAbility : AbilityBase
 {
     [SerializeField] private GameObject building;
-    private float buildingCost;
+    private float goldCost;
+    private float woodCost;
     private Unit unit;
     TeamResourceStorages teamResourceStorages;
 
@@ -21,7 +22,10 @@ public class PlaceBuildingAbility : AbilityBase
             unit = (Unit)selectedObject;
         }
         if (building.layer == 8)
-            buildingCost = building.GetComponent<Building>().GetBaseStats().baseStats.goldCost;
+        {
+            goldCost = building.GetComponent<Building>().GetBaseStats().baseStats.goldCost;
+            woodCost = building.GetComponent<Building>().GetBaseStats().baseStats.woodCost;
+        }
 
         switch (unit.tag)
         {
@@ -37,9 +41,19 @@ public class PlaceBuildingAbility : AbilityBase
     public override void Activate()
     {
 
-        if (teamResourceStorages.GetGoldCount() >= buildingCost)
+        if (teamResourceStorages.GetGoldCount() >= goldCost && teamResourceStorages.GetWoodCount() >= woodCost)
         {
-            unit.buildingConstructor.EnterConstructionMode(building);
+            if (unit.tag == "Player")
+                unit.buildingConstructor.EnterConstructionMode(building);
+            if (unit.tag == "Enemy")
+            {
+                //EnemyContext enemyContext = GameObject.Find("GameController")
+                //var clone = Instantiate(building, ene, prefab.transform.rotation);
+                //_building = clone.GetComponent<Building>();
+                //_building.state = BuildingState.Init;
+                //_building.navMeshObstacle.enabled = false;
+                //_building.enabled = false;
+            }
         }
     }
 

@@ -15,4 +15,4 @@ MonoBehaviour:
   abilityName: Place Farm House
   cooldown: 0
   duration: 0
-  building: {fileID: 5537763538549161591, guid: 7642e6e80b609b84596bc903a3e0f85a, type: 3}
+  building: {fileID: 2651376090777716849, guid: 57c603b648fbae3469733d6f93fc2dac, type: 3}

@@ -22,7 +22,7 @@ namespace RTS.Units
 
         protected virtual void Die()
         {
-            InputManager.InputHandler.instance.GetSelectableObjects().Remove(gameObject.GetComponent<Transform>());
+            InputManager.InputHandler.GetSelectableObjects().Remove(gameObject.GetComponent<Transform>());
             Destroy(gameObject);
         }
         public void TakeDamage(float damage)

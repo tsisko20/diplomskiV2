@@ -350,6 +350,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8022951742247337782, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022951742247337782, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_Color.g
+      value: 0.3921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022951742247337782, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -463,6 +475,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4af9ef222d996264794ef88e7393b126, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3353444947160431419}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4af9ef222d996264794ef88e7393b126, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5695187641661210303}
   m_SourcePrefab: {fileID: 100100000, guid: 4af9ef222d996264794ef88e7393b126, type: 3}
 --- !u!23 &7378505724564928005 stripped
 MeshRenderer:
@@ -533,7 +548,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 2.25, y: 1.5, z: 1.25}
+  m_Extents: {x: 1.75, y: 1.5, z: 1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -564,5 +579,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d006e42c9742b489c2e9a6b20ce409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitQueue: []
+  currentRecruit: {fileID: 0}
+  currentUnit: {fileID: 0}
+  recruitTimer: 0
   recruitPosition: {fileID: 6215103608838435816}
   destinationPosition: {fileID: 7914200138770454726}
+--- !u!114 &-5695187641661210303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8983773328105570361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b66ba7ff9c42794eaad70b90cd45245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityTemplate: {fileID: 11400000, guid: 6ace95e94bdd16c4db0283635b22e62a, type: 2}
+  abilityInstance: {fileID: 0}
+  activeDuration: 0
+  activeCooldown: 0
+  buttonPrefab: {fileID: 1537048188674838020, guid: b65aeed487566cc458f02515eb4a5f33, type: 3}
+  buttonUI: {fileID: 0}

@@ -16,6 +16,7 @@ namespace RTS.Ability
         public abstract void Deactivate();
         public float GetDuration() => duration;
         public float GetCooldown() => cooldown;
+        public string GetAbilityName() => abilityName;
     }
 }
 

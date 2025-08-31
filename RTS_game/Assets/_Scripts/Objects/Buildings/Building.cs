@@ -2,6 +2,7 @@ using RTS;
 using RTS.Ability;
 using RTS.Buildings;
 using RTS.InputManager;
+using RTS.UI;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,7 +19,7 @@ namespace RTS.Objects.Buildings
     [RequireComponent(typeof(NavMeshObstacle))]
     public class Building : SelectableObject, IAttackable
     {
-        [SerializeField] private BasicBuilding buildingStats;
+        [SerializeField] public BasicBuilding buildingStats;
         public MeshRenderer meshRenderer;
         [SerializeField] private BoxCollider boxCollider;
         private TeamResourceStorages teamResourceStorages;
@@ -59,9 +60,24 @@ namespace RTS.Objects.Buildings
                 if (health == buildingStats.baseStats.health)
                 {
                     state = BuildingState.Finished;
-                    SetColor(GetTeamColor());
+                    SetColor(Color.white);
+                    if (InputHandler.GetSelectableObjects().Contains(transform))
+                    {
+                        foreach (var abilityHolder in abilityHolders)
+                        {
+                            abilityHolder.Setup();
+                        }
+                        SelectedObjectUI.UpdateUI(InputHandler.GetSelectableObjects());
+                    }
                 }
             }
+        }
+
+        protected override string GetInstanceDestination()
+        {
+            string parentFolder = buildingStats.buildingName + "s";
+            string root = gameObject.tag;
+            return $"{gameObject.tag}/Buildings/{parentFolder}";
         }
 
         public override AbilityHolder[] GetAbilityHolders()
@@ -104,9 +120,9 @@ namespace RTS.Objects.Buildings
 
         public override bool IsDead() => health <= 0;
 
-        protected override void Die()
+        protected void Die()
         {
-            RTS.InputManager.InputHandler.instance.GetSelectableObjects().Remove(gameObject.GetComponent<Transform>());
+            RTS.InputManager.InputHandler.GetSelectableObjects().Remove(gameObject.GetComponent<Transform>());
             Collider col = GetComponent<Collider>();
             if (col) col.enabled = false;
             Destroy(gameObject);

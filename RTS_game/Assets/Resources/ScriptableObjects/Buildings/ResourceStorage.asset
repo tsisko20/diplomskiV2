@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ResourceStorage
   m_EditorClassIdentifier: 
   baseStats:
-    cost: 100
+    goldCost: 0
+    woodCost: 0
     aggroRange: 0
     attackRange: 0
     attackSpeed: 0
@@ -22,4 +23,4 @@ MonoBehaviour:
     armor: 10
   icon: {fileID: 0}
   type: 0
-  buildingName: Farm House
+  buildingName: Resource Storage

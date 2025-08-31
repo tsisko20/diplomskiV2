@@ -69,15 +69,9 @@ public class Recruiter : MonoBehaviour
         {
             currentUnit = currentRecruit.GetComponent<Unit>();
             recruitTimer = currentUnit.unitStats.recruitTime;
-            string root = gameObject.tag;
-            GameObject parentFolderRoot;
-            string parentFolder = currentUnit.unitStats.unitName + 's';
-            parentFolderRoot = GameObject.Find($"{root}/Units/{parentFolder}");
-            Debug.Log($"{root}/Units/{parentFolder}");
             GameObject newUnit = Instantiate(currentRecruit, recruitPosition.position, recruitPosition.rotation);
-            newUnit.transform.SetParent(parentFolderRoot.transform);
             Unit newUnitComponent = newUnit.GetComponent<Unit>();
-            newUnitComponent.SetTeamByHierarchy();
+            newUnitComponent.SetTeam(gameObject.tag);
             newUnitComponent.destination = destinationPosition.position;
             newUnitComponent.stateMachine.ChangeState(newUnitComponent.stateMachine.walkState);
             currentRecruit = null;

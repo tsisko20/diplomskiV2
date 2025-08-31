@@ -16,7 +16,7 @@ public class GatherUnitState : UnitState
     private int maxGold = 20;
     public int woodCollected = 0;
     private int maxWood = 20;
-    private int gatheringPower = 5;
+    private int gatheringPower = 20;
     private Transform closestResourceStorage;
     private Transform closestResource;
     private TeamResourceStorages teamResourceStorages;
@@ -51,7 +51,6 @@ public class GatherUnitState : UnitState
     {
         if (unit.target == null && targetResource != null && previousTargetLocation == Vector3.zero)
         {
-            Debug.Log("brisi target");
             targetResource = null;
             gatheringTimer = TIME_TO_GATHER;
         }
@@ -66,15 +65,13 @@ public class GatherUnitState : UnitState
                     return;
                 }
                 FindNearestResourceStorage();
-                if (CalculateTargetDistance(closestResourceStorage.gameObject) <= 1f)
+                if (CalculateTargetDistance(closestResourceStorage.gameObject) <= 1.2f)
                 {
-                    unit.StopMoving();
-                    Debug.Log("give resource to storage");
                     GiveResources();
+                    unit.StopMoving();
                 }
                 else
                 {
-                    Debug.Log("move to storage");
                     MoveToResStorage();
                 }
             }
@@ -82,13 +79,11 @@ public class GatherUnitState : UnitState
             {
                 if (CalculateTargetDistance(targetResource.GetTransform().gameObject) <= 1f)
                 {
-                    unit.StopMoving();
-                    Debug.Log("gather");
                     GatherResource();
+                    unit.StopMoving();
                 }
                 else
                 {
-                    Debug.Log("move to resource");
                     MoveToResource();
                 }
             }
@@ -128,7 +123,6 @@ public class GatherUnitState : UnitState
             case ResourceType.Wood:
                 if (woodCollected < maxWood)
                 {
-                    Debug.Log("bum drvo");
                     woodCollected += targetResource.GiveResource(gatheringPower);
                     woodCollected = Mathf.Clamp(woodCollected, 0, maxWood);
                 }
@@ -152,43 +146,16 @@ public class GatherUnitState : UnitState
                 closestResourceStorage = resourceStorage.transform;
             }
         }
+        Debug.Log(closestResourceStorage.name);
     }
 
     private void FindNearestResource()
     {
-        float closestDistance = 0;
         GameObject newResource = null;
-        closestDistance = float.MaxValue;
-
-        switch (resourceType)
-        {
-            case ResourceType.Wood:
-                allResourceObjects = ResourceHandler.instance.allTreeObjects;
-                break;
-            case ResourceType.Gold:
-                allResourceObjects = ResourceHandler.instance.allGoldObjects;
-                break;
-        }
-
-        foreach (var resource in allResourceObjects)
-        {
-            if (resource == null)
-                continue;
-            float distance = Vector3.Distance(previousTargetLocation, resource.transform.position);
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestResource = resource.transform;
-                newResource = resource;
-                targetResource = resource.GetComponent<IGatherable>();
-            }
-        }
-        if (newResource != null)
-        {
-            unit.target = newResource;
-            previousTargetLocation = newResource.transform.position;
-            Debug.Log("pronaden sljedeci resurs");
-        }
+        newResource = ResourceGatherer.FindNearestResource(resourceType, ref previousTargetLocation);
+        unit.target = newResource;
+        closestResource = newResource.transform;
+        targetResource = newResource.GetComponent<IGatherable>();
     }
     private void MoveToResStorage()
     {
@@ -197,13 +164,27 @@ public class GatherUnitState : UnitState
             stateMachine.ChangeState(stateMachine.idleState);
             return;
         }
-        unit.MoveTo(closestResourceStorage.transform.position);
+        Collider targetCollider = closestResourceStorage.GetComponent<Collider>();
+
+        Vector3 targetCenter = closestResourceStorage.transform.position;
+
+        Vector3 closestPoint = targetCollider != null
+            ? targetCollider.ClosestPoint(unit.transform.position)
+            : targetCenter;
+        unit.MoveTo(closestPoint);
 
     }
 
     private void MoveToResource()
     {
-        unit.MoveTo(closestResource.position);
+        Collider targetCollider = closestResource.GetComponent<Collider>();
+
+        Vector3 targetCenter = closestResource.transform.position;
+
+        Vector3 closestPoint = targetCollider != null
+            ? targetCollider.ClosestPoint(unit.transform.position)
+            : targetCenter;
+        unit.MoveTo(closestPoint);
     }
 
     private void GatherResource()

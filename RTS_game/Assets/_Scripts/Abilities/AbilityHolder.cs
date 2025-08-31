@@ -8,8 +8,8 @@ namespace RTS.Ability
     public class AbilityHolder : MonoBehaviour
     {
         protected AbilityStateType abilityState;
-        [SerializeField] private AbilityBase abilityTemplate;
-        private AbilityBase abilityInstance;
+        public AbilityBase abilityTemplate;
+        public AbilityBase abilityInstance;
         [SerializeField] protected float activeDuration = 0;
         [SerializeField] protected float activeCooldown = 0;
         [SerializeField] private GameObject buttonPrefab;
@@ -17,13 +17,7 @@ namespace RTS.Ability
 
         private void Start()
         {
-            abilityState = AbilityStateType.Ready;
-            SelectableObject caster = GetComponent<SelectableObject>();
-            if (abilityTemplate != null && caster != null)
-            {
-                abilityInstance = Instantiate(abilityTemplate);
-                abilityInstance.Setup(caster);
-            }
+            Setup();
         }
         private void Update()
         {
@@ -56,6 +50,17 @@ namespace RTS.Ability
                         abilityState = AbilityStateType.Ready;
                     }
                     break;
+            }
+        }
+
+        public void Setup()
+        {
+            abilityState = AbilityStateType.Ready;
+            SelectableObject caster = GetComponent<SelectableObject>();
+            if (abilityTemplate != null && caster != null)
+            {
+                abilityInstance = Instantiate(abilityTemplate);
+                abilityInstance.Setup(caster);
             }
         }
         public GameObject GetButtonPrefab() => buttonPrefab;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f638b8773d5222343ab518b650d1fa73, type: 3}
   m_Name: RecruitFarmer
   m_EditorClassIdentifier: 
-  abilityName: Undefined name
+  abilityName: Recruit Farmer
   cooldown: 0
   duration: 0
   unit: {fileID: 6384201335879838320, guid: 9ebff4005f3086d4b8f20b97cbf85445, type: 3}

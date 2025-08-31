@@ -46,7 +46,7 @@ public class RecruitPanelUI : MonoBehaviour
 
     private void Update()
     {
-        if (recruitProgressBar.IsActive())
+        if (recruitProgressBar.IsActive() && recruiter != null)
         {
             float remainingTime = recruiter.recruitTimer;
             recruitProgressBar.fillAmount = 1 - (remainingTime / totalRecruitTime);

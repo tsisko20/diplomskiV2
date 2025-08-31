@@ -42,4 +42,7 @@ public class RecruitUnitAbility : AbilityBase
         woodCost = unit.GetComponent<Unit>().GetBaseStats().baseStats.woodCost;
 
     }
+
+    public float GetGoldCost() { return goldCost; }
+    public float GetWoodCost() { return woodCost; }
 }

@@ -31,6 +31,11 @@ public class ConstructUnitState : UnitState
 
     public override void Update()
     {
+        if (targetBuilding == null)
+        {
+            stateMachine.ChangeState(stateMachine.idleState);
+            return;
+        }
         if (CalculateTargetDistance(unit.target) <= 1)
         {
             unit.StopMoving();

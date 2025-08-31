@@ -14,7 +14,6 @@ namespace RTS.InputManager
     public class InputHandler : MonoBehaviour
     {
         public static InputHandler instance { get; private set; }
-        public SelectedObjectUI selectedUI;
         private RaycastHit hit;
         private List<Transform> selectedObjects = new List<Transform>();
         [SerializeField] private bool isDragging = false;
@@ -30,7 +29,7 @@ namespace RTS.InputManager
         }
         private void Start()
         {
-            selectedUI.UpdateSelectionUI(selectedObjects);
+            SelectedObjectUI.UpdateUI(selectedObjects);
         }
 
         private void Update()
@@ -74,7 +73,7 @@ namespace RTS.InputManager
                 {
                     // Multi-selekcija
                     DeselectObjects();
-                    foreach (Transform unitType in Player.UnitManager.instance.playerUnits)
+                    foreach (Transform unitType in GameObject.Find("Player/Units").transform)
                     {
                         foreach (Transform unit in unitType)
                         {
@@ -113,7 +112,7 @@ namespace RTS.InputManager
                 }
 
                 isDragging = false;
-                selectedUI.UpdateSelectionUI(selectedObjects);
+                SelectedObjectUI.UpdateUI(selectedObjects);
                 hasClickedOnUI = false;
             }
 
@@ -184,7 +183,7 @@ namespace RTS.InputManager
             return (selectedObjects.Count > 0);
         }
 
-        public List<Transform> GetSelectableObjects() => selectedObjects;
+        public static List<Transform> GetSelectableObjects() => instance.selectedObjects;
 
         public bool IsPlayerSelected()
         {

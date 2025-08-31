@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TeamResourceStorages : MonoBehaviour
 {
-    private int goldCount;
-    private int woodCount;
+    [SerializeField] private int goldCount;
+    [SerializeField] private int woodCount;
     [SerializeField] private ResourceUI resourceUI;
     public GameObject resStorageParent;
     public List<GameObject> allResourceStorages;
