@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: bb3d814e68d2c4644a30d2623f1ca817
+guid: cf4919e5a9477e54682839c27ec4e7b2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 987aeab7a17e5c443a44a1e2bbc1e197, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -31,9 +36,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: archer|Die
-      takeName: archer|Die
-      internalID: -2756815694389909382
+      name: archer|archer|archer|Die
+      takeName: archer|archer|archer|Die
+      internalID: -3184683635712380812
       firstFrame: 0
       lastFrame: 40
       wrapMode: 0
@@ -60,9 +65,9 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: archer|Idle
-      takeName: archer|Idle
-      internalID: -1386184631752016681
+      name: archer|archer|archer|Idle
+      takeName: archer|archer|archer|Idle
+      internalID: 6095542162649000301
       firstFrame: 0
       lastFrame: 120
       wrapMode: 0
@@ -89,9 +94,9 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: archer|ShootArrow
-      takeName: archer|ShootArrow
-      internalID: 6440616718136240858
+      name: archer|archer|archer|ShootArrow
+      takeName: archer|archer|archer|ShootArrow
+      internalID: 8959792075836668249
       firstFrame: 0
       lastFrame: 60
       wrapMode: 0
@@ -118,9 +123,9 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: archer|walk
-      takeName: archer|walk
-      internalID: -2227329082069284115
+      name: archer|archer|archer|walk
+      takeName: archer|archer|archer|walk
+      internalID: 4987880731795130852
       firstFrame: 0
       lastFrame: 30
       wrapMode: 0

@@ -1,6 +1,3 @@
-using RTS.Units.Player;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEditor.Rendering;
 using UnityEngine;
 namespace RTS.Units
 {
@@ -24,7 +21,7 @@ namespace RTS.Units
                 case "warrior": unit = warrior; break;
                 case "archer": unit = archer; break;
                 default:
-                    Debug.Log($"Unit type: {type} could not be found or does not exist!");
+                    
                     return null;
             }
             return unit.baseStats;

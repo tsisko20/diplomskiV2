@@ -1,11 +1,7 @@
-using RTS.Objects.Units;
-using UnityEngine;
-
 namespace RTS.Enemy
 {
     public class EnemyState
     {
-        //protected Unit unit;
         protected EnemyStateMachine stateMachine;
         protected EnemyContext enemyContext;
         public EnemyState(EnemyContext _enemyContext, EnemyStateMachine _stateMachine)

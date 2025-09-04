@@ -1,14 +1,7 @@
-using JetBrains.Annotations;
-using RTS.Buildings;
-using RTS.InputManager;
 using RTS.Objects.Buildings;
 using RTS.Units;
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering.Universal;
-using static UnityEngine.UI.CanvasScaler;
 
 namespace RTS.Objects.Units
 {
@@ -37,10 +30,8 @@ namespace RTS.Objects.Units
         public SkinnedMeshRenderer rend;
         private delegate void InteractWithTarget();
         public UnitStateMachine stateMachine;
+        private float deathTime = 5;
 
-
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Setup()
         {
             navAgent = GetComponent<NavMeshAgent>();
@@ -54,14 +45,16 @@ namespace RTS.Objects.Units
             stateMachine = new UnitStateMachine(this);
         }
 
-        private void Start()
-        {
-        }
-
-        // Update is called once per frame
         void Update()
         {
-            stateMachine.currentState.Update();
+            if (IsDead())
+            {
+                deathTime -= Time.deltaTime;
+                if (deathTime <= 0)
+                    Destroy(gameObject);
+            }
+            else
+                stateMachine.currentState.Update();
         }
 
         public void UpdateState(GameObject _target)
@@ -138,7 +131,12 @@ namespace RTS.Objects.Units
 
         public void Heal(float amount)
         {
-            health += amount;
+            if (health + amount > unitStats.baseStats.health)
+            {
+                health = unitStats.baseStats.health;
+            }
+            else
+                health += amount;
         }
         public override bool IsDead() => health <= 0;
         public void MoveTo(Vector3 destination)
@@ -149,7 +147,8 @@ namespace RTS.Objects.Units
         }
         public void StopMoving()
         {
-            navAgent.isStopped = true;
+            if (navAgent.enabled)
+                navAgent.isStopped = true;
         }
 
         public Transform GetTransform() => transform;

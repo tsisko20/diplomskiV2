@@ -1,6 +1,3 @@
-using Mono.Cecil;
-using RTS;
-using RTS.Objects.Units;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,8 +22,6 @@ public class ResourceGatherer : MonoBehaviour
                 instance.allResourceObjects = ResourceHandler.instance.allTreeObjects;
                 break;
             case ResourceType.Gold:
-                Debug.Log(instance);
-                Debug.Log(ResourceHandler.instance);
                 instance.allResourceObjects = ResourceHandler.instance.allGoldObjects;
                 break;
         }

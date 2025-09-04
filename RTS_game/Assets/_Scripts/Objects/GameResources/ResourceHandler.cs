@@ -1,8 +1,6 @@
-using NUnit.Framework;
 using RTS;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class ResourceHandler : MonoBehaviour
 {
@@ -42,9 +40,9 @@ public class ResourceHandler : MonoBehaviour
         switch (team)
         {
             case "Player":
-                return playerResStorage; break;
+                return playerResStorage;
             case "Enemy":
-                return enemyResStorage; break;
+                return enemyResStorage;
             default: return null;
         }
     }

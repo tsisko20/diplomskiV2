@@ -1,8 +1,6 @@
-using RTS;
 using RTS.Objects.Units;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class GatherUnitState : UnitState
 {
@@ -16,7 +14,7 @@ public class GatherUnitState : UnitState
     private int maxGold = 20;
     public int woodCollected = 0;
     private int maxWood = 20;
-    private int gatheringPower = 20;
+    private int gatheringPower = 5;
     private Transform closestResourceStorage;
     private Transform closestResource;
     private TeamResourceStorages teamResourceStorages;
@@ -64,35 +62,53 @@ public class GatherUnitState : UnitState
                     stateMachine.ChangeState(stateMachine.idleState);
                     return;
                 }
-                FindNearestResourceStorage();
-                if (CalculateTargetDistance(closestResourceStorage.gameObject) <= 1.2f)
-                {
-                    GiveResources();
-                    unit.StopMoving();
-                }
-                else
-                {
-                    MoveToResStorage();
-                }
+                GoToResourceStorage();
             }
             else
             {
-                if (CalculateTargetDistance(targetResource.GetTransform().gameObject) <= 1f)
-                {
-                    GatherResource();
-                    unit.StopMoving();
-                }
-                else
-                {
-                    MoveToResource();
-                }
+                GoToResource();
             }
         }
-        else if (previousTargetLocation != Vector3.zero)
+        else
+            FindNewResource();
+    }
+
+    private void FindNewResource()
+    {
+        if (previousTargetLocation != Vector3.zero)
         {
             FindNearestResource();
             if (closestResource == null)
+            {
                 stateMachine.ChangeState(stateMachine.idleState);
+            }
+        }
+    }
+
+    private void GoToResourceStorage()
+    {
+        FindNearestResourceStorage();
+        if (closestResourceStorage != null)
+            if (CalculateTargetDistance(closestResourceStorage.gameObject) <= 1.2f)
+            {
+                GiveResources();
+                unit.StopMoving();
+            }
+            else
+            {
+                MoveToResStorage();
+            }
+    }
+    private void GoToResource()
+    {
+        if (CalculateTargetDistance(targetResource.GetTransform().gameObject) <= 1f)
+        {
+            GatherResource();
+            unit.StopMoving();
+        }
+        else
+        {
+            MoveToResource();
         }
     }
     public void SetResourceTarget(IGatherable gatherable)
@@ -146,7 +162,6 @@ public class GatherUnitState : UnitState
                 closestResourceStorage = resourceStorage.transform;
             }
         }
-        Debug.Log(closestResourceStorage.name);
     }
 
     private void FindNearestResource()

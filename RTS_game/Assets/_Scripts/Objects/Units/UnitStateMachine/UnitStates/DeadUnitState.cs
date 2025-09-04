@@ -1,4 +1,6 @@
+using RTS.InputManager;
 using RTS.Objects.Units;
+using RTS.UI;
 using UnityEngine;
 
 public class DeadUnitState : UnitState
@@ -10,15 +12,16 @@ public class DeadUnitState : UnitState
 
     public override void EnterState()
     {
-        RTS.InputManager.InputHandler.GetSelectableObjects().Remove(unit.gameObject.GetComponent<Transform>());
-        unit.navAgent.isStopped = true;
-        unit.navAgent.ResetPath();
         unit.navAgent.enabled = false;
+        unit.target = null;
         Transform movingRange = unit.transform.Find("MovingRange");
         movingRange.gameObject.SetActive(false);
         unit.animator.ChangeAnimation(UnitStates.Dead);
         unit.Deselect();
-        deathTime = Time.time;
+        if (InputHandler.GetSelectableObjects().Remove(unit.GetComponent<Transform>()))
+        {
+            SelectedObjectUI.UpdateUI(InputHandler.GetSelectableObjects());
+        }
     }
 
     public override void ExitState()
@@ -27,9 +30,6 @@ public class DeadUnitState : UnitState
 
     public override void Update()
     {
-        if (Time.time - deathTime >= 5f)
-        {
-            GameObject.Destroy(unit.gameObject);
-        }
+
     }
 }

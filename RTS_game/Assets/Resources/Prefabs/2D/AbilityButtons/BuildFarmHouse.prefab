@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7977546674735819923}
   - component: {fileID: 1738576486004282169}
   - component: {fileID: 8073997142710116457}
+  - component: {fileID: 1791201308894628909}
   m_Layer: 0
   m_Name: BuildFarmHouse
   m_TagString: Untagged
@@ -134,6 +135,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1791201308894628909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537048188674838020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16e1b2bd8f2cb34ca0191f4d6bbd5a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseObj: {fileID: 11400000, guid: bce2edc188e5c0a4ea2909cf3b2d997b, type: 2}
 --- !u!1 &8769162839369371285
 GameObject:
   m_ObjectHideFlags: 0

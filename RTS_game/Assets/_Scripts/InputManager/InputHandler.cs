@@ -1,14 +1,8 @@
-using RTS.InputManager;
 using RTS.Objects;
-using RTS.Objects.Buildings;
 using RTS.Objects.Units;
 using RTS.UI;
-using RTS.Units;
-using RTS.Units.Player;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 namespace RTS.InputManager
 {
     public class InputHandler : MonoBehaviour
@@ -22,7 +16,6 @@ namespace RTS.InputManager
         private bool mouseStartedOverUI = false;
         private const string SELECTION_SPRITE = "selectionSprite";
         private bool hasClickedOnUI = false;
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Awake()
         {
             instance = this;
@@ -49,14 +42,12 @@ namespace RTS.InputManager
         }
         public void HandleUnitMovement()
         {
-            // Start drag
             if (Input.GetMouseButtonDown(0))
             {
                 hasClickedOnUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
                 mousePos = Input.mousePosition;
             }
 
-            // Check for dragging
             if (Input.GetMouseButton(0))
             {
                 if (Vector3.Distance(mousePos, Input.mousePosition) > dragThreshold)
@@ -66,12 +57,10 @@ namespace RTS.InputManager
                 }
             }
 
-            // On release
             if (Input.GetMouseButtonUp(0))
             {
                 if (isDragging)
                 {
-                    // Multi-selekcija
                     DeselectObjects();
                     foreach (Transform unitType in GameObject.Find("Player/Units").transform)
                     {
@@ -87,7 +76,6 @@ namespace RTS.InputManager
                 }
                 else
                 {
-                    // Klik selekcija
                     if (hasClickedOnUI)
                     {
                         hasClickedOnUI = false;
@@ -114,9 +102,9 @@ namespace RTS.InputManager
                 isDragging = false;
                 SelectedObjectUI.UpdateUI(selectedObjects);
                 hasClickedOnUI = false;
+                PlayUnitSelectSound();
             }
 
-            // Desni klik: kretanje / napad / gathering
             if (Input.GetMouseButtonUp(1) && HaveSelectedUnits())
             {
                 if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
@@ -137,21 +125,26 @@ namespace RTS.InputManager
             }
         }
 
+        private void PlayUnitSelectSound()
+        {
+            if (selectedObjects.Count == 0) return;
+            if (selectedObjects[0].tag == "Player" && selectedObjects[0].GetComponent<SelectableObject>() is Unit)
+            {
+                SoundManager.PlayUnitSelectSound();
+            }
+        }
+
         private void SelectObject(SelectableObject selectable, bool canMultiSelect = false)
         {
             if (!canMultiSelect)
             {
                 DeselectObjects();
             }
-            //Transform objTransform = selectable.transform;
-            //if (selectedObjects.Contains(objTransform) == false)
-            //{
             if (selectable.IsDead() == false)
             {
                 selectedObjects.Add(selectable.transform);
                 selectable.Select();
             }
-            //}
         }
 
         private void DeselectObjects()

@@ -1,11 +1,10 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TeamResourceStorages : MonoBehaviour
 {
-    [SerializeField] private int goldCount;
-    [SerializeField] private int woodCount;
+    [SerializeField] private int goldCount = 50;
+    [SerializeField] private int woodCount = 50;
     [SerializeField] private ResourceUI resourceUI;
     public GameObject resStorageParent;
     public List<GameObject> allResourceStorages;
@@ -36,6 +35,11 @@ public class TeamResourceStorages : MonoBehaviour
                 if (gameObject.tag == "Player")
                     resourceUI.UpdateResValueUI(resourceType, woodCount); break;
         }
+    }
+
+    public void AddResStorage(GameObject resStorage)
+    {
+        allResourceStorages.Add(resStorage);
     }
 
     public int GetGoldCount()

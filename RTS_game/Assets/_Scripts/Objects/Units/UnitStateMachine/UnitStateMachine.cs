@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace RTS.Objects.Units
 {
     public class UnitStateMachine

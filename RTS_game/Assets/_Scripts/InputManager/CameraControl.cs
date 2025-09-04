@@ -1,5 +1,3 @@
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour
@@ -11,14 +9,12 @@ public class CameraControl : MonoBehaviour
     [SerializeField] private float movementSpeed = 200f;
     [SerializeField] float panBorderThickness = 10f;
     private bool shouldMoveCamera = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Awake()
     {
         instance = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Space))

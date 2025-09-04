@@ -1,6 +1,5 @@
 using RTS.Enemy;
 using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(EnemyContext))]
 public class EnemyHandler : MonoBehaviour

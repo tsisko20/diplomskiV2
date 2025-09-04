@@ -1,6 +1,4 @@
-using RTS;
 using RTS.Ability;
-using RTS.Buildings;
 using RTS.Objects;
 using RTS.Objects.Buildings;
 using RTS.Objects.Units;
@@ -44,18 +42,23 @@ public class PlaceBuildingAbility : AbilityBase
         if (teamResourceStorages.GetGoldCount() >= goldCost && teamResourceStorages.GetWoodCount() >= woodCost)
         {
             if (unit.tag == "Player")
-                unit.buildingConstructor.EnterConstructionMode(building);
+                BuildingConstructor.EnterConstructionMode(building);
             if (unit.tag == "Enemy")
             {
-                //EnemyContext enemyContext = GameObject.Find("GameController")
-                //var clone = Instantiate(building, ene, prefab.transform.rotation);
-                //_building = clone.GetComponent<Building>();
-                //_building.state = BuildingState.Init;
-                //_building.navMeshObstacle.enabled = false;
-                //_building.enabled = false;
+                EnemyContext enemyContext = GameObject.Find("GameController").GetComponent<EnemyContext>();
+                Building buildingComponent;
+                var clone = Instantiate(building, enemyContext.buildLocation.position, enemyContext.buildLocation.rotation);
+                buildingComponent = clone.GetComponent<Building>();
+                buildingComponent.state = BuildingState.Init;
+                buildingComponent.SetTeam("Enemy");
+                teamResourceStorages.UpdateResCount(ResourceType.Gold, (int)-goldCost);
+                teamResourceStorages.UpdateResCount(ResourceType.Wood, (int)-woodCost);
             }
         }
     }
+
+    public float GetWoodCost() => woodCost;
+    public float GetGoldCost() => goldCost;
 
     public override void Deactivate()
     {

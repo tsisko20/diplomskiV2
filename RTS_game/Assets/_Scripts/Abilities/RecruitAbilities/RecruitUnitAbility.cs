@@ -19,11 +19,6 @@ public class RecruitUnitAbility : AbilityBase
             building.recruiter.AddUnitToQueue(unit);
             teamResourceStorages.UpdateResCount(ResourceType.Gold, (int)-goldCost);
             teamResourceStorages.UpdateResCount(ResourceType.Wood, (int)-woodCost);
-            Debug.Log("recruit unit");
-        }
-        else
-        {
-            Debug.Log("nema para " + teamResourceStorages.GetGoldCount() + teamResourceStorages.GetWoodCount());
         }
     }
 

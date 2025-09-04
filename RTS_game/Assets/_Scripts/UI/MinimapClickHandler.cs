@@ -1,18 +1,15 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.TerrainUtils;
 
 public class MinimapClickHandler : MonoBehaviour, IPointerClickHandler
 {
-    public Camera minimapCamera;   // kamera koja rendera minimapu
-    public Camera mainCamera;      // glavna kamera
+    public Camera minimapCamera;
+    public Camera mainCamera;
     public Transform camParent;
 
     public Vector3 cameraOffset = new Vector3(0, 0, -20);
-    // offset kamere u odnosu na target (možeš prilagoditi: visina + udaljenost iza)
 
-    public float moveSpeed = 5f;   // brzina pomaka
+    public float moveSpeed = 5f;
 
     private Vector3 targetLookAt;
     private Vector3 targetPosition;
@@ -31,7 +28,7 @@ public class MinimapClickHandler : MonoBehaviour, IPointerClickHandler
     {
         if (hasTarget)
         {
-            // Smooth pozicija
+
             if (CameraControl.IsCameraControllOn())
             {
                 wasCameraControllOn = true;
@@ -47,7 +44,7 @@ public class MinimapClickHandler : MonoBehaviour, IPointerClickHandler
         {
             hasTarget = false;
             camParent.position = targetPosition;
-            //camParent.LookAt(targetLookAt);
+
             if (wasCameraControllOn)
             {
                 CameraControl.ToogleCameraControl();
@@ -74,14 +71,14 @@ public class MinimapClickHandler : MonoBehaviour, IPointerClickHandler
             Ray ray = minimapCamera.ScreenPointToRay(minimapScreenPoint);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, terrainMask))
             {
-                // target = mjesto na koje si kliknuo
+
                 Vector3 target = hit.point;
 
-                // snimimo target poziciju i lookAt
+
                 targetPosition = target + cameraOffset;
                 targetLookAt = target;
 
-                // ---- CLAMP da ne izade izvan granica CameraControla ----
+
                 Vector3 lower = CameraControl.GetLowerLimits();
                 Vector3 upper = CameraControl.GetUpperLimits();
 

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace RTS.Ability
 {
     public enum AbilityStateType

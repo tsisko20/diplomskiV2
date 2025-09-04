@@ -3,7 +3,6 @@ using RTS.Objects.Buildings;
 using RTS.Objects.Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public enum ConstructionState
 {
@@ -13,6 +12,7 @@ public enum ConstructionState
 }
 public class BuildingConstructor : MonoBehaviour
 {
+    public static BuildingConstructor instance { get; private set; }
     public Camera cam;
 
     public InputAction pointerPosition;
@@ -33,6 +33,10 @@ public class BuildingConstructor : MonoBehaviour
     Building _building;
     TeamResourceStorages teamResourceStorages;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     private void OnEnable()
     {
         pointerPosition.Enable();
@@ -53,16 +57,16 @@ public class BuildingConstructor : MonoBehaviour
         teamResourceStorages = ResourceHandler.instance.playerResStorage;
     }
 
-    public void EnterConstructionMode(GameObject prefab)
+    public static void EnterConstructionMode(GameObject prefab)
     {
-        ClearExistingBuilding();
-        _state = ConstructionState.Moving;
-        var clone = Instantiate(prefab, MouseToFloorPoint(), prefab.transform.rotation);
-        _building = clone.GetComponent<Building>();
-        _building.state = BuildingState.Init;
-        _building.navMeshObstacle.enabled = false;
-        _building.enabled = false;
-        _initColor = _building.GetColor();
+        instance.ClearExistingBuilding();
+        instance._state = ConstructionState.Moving;
+        var clone = Instantiate(prefab, instance.MouseToFloorPoint(), prefab.transform.rotation);
+        instance._building = clone.GetComponent<Building>();
+        instance._building.state = BuildingState.Init;
+        instance._building.navMeshObstacle.enabled = false;
+        instance._building.enabled = false;
+        instance._initColor = instance._building.GetColor();
     }
 
     private void Update()
@@ -179,8 +183,10 @@ public class BuildingConstructor : MonoBehaviour
             Unit unit = selected.GetComponent<Unit>();
             unit.UpdateState(_building.gameObject);
         }
-        float buildingCost = _building.GetBaseStats().baseStats.goldCost;
-        teamResourceStorages.UpdateResCount(ResourceType.Gold, (int)-buildingCost);
+        float goldCost = _building.GetBaseStats().baseStats.goldCost;
+        float woodCost = _building.GetBaseStats().baseStats.woodCost;
+        teamResourceStorages.UpdateResCount(ResourceType.Gold, (int)-goldCost);
+        teamResourceStorages.UpdateResCount(ResourceType.Wood, (int)-woodCost);
         ExitConstructionMode();
     }
 

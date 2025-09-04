@@ -1,5 +1,3 @@
-using RTS.InputManager;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,14 +12,7 @@ namespace RTS.Objects
 
         void Start()
         {
-            if (selectable == null)
-            {
-                Debug.LogWarning("UnitCommon component not found in parent. Disabling UnitStatDisplay.");
-                enabled = false;
-                return;
-            }
             parentName = transform.parent.name;
-
         }
         private void Update()
         {

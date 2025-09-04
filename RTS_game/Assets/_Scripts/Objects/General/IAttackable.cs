@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace RTS
+﻿namespace RTS
 {
     public interface IAttackable : ITargetable
     {

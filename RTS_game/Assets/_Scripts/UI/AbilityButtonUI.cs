@@ -1,4 +1,3 @@
-using RTS.Ability;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +8,6 @@ public class AbilityButtonUI : MonoBehaviour
     private float cdDuration;
     private float duration;
     private bool abilityIsOnCd;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         cooldownIcon.fillAmount = 0;

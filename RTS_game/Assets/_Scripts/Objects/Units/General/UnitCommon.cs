@@ -1,7 +1,5 @@
-using RTS.InputManager;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 namespace RTS.Units
 {

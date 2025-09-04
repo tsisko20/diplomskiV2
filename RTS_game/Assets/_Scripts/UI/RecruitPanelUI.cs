@@ -1,6 +1,5 @@
 using RTS.Objects.Units;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class RecruitPanelUI : MonoBehaviour
@@ -130,7 +129,6 @@ public class RecruitPanelUI : MonoBehaviour
             if (queueUI.childCount == 0)
             {
                 recruitProgressBar.transform.parent.gameObject.SetActive(false);
-                Debug.Log("sakri slider");
             }
         }
     }

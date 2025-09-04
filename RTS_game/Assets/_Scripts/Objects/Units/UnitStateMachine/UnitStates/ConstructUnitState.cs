@@ -54,7 +54,6 @@ public class ConstructUnitState : UnitState
         }
         if (targetBuilding.GetCurrentHealth() == targetMaxHealth)
         {
-            Debug.Log("healed");
             stateMachine.ChangeState(stateMachine.idleState);
         }
     }

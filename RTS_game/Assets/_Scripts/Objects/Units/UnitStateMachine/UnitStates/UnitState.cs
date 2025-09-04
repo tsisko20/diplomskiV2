@@ -1,6 +1,3 @@
-using RTS.Objects.Units;
-using UnityEngine;
-
 namespace RTS.Objects.Units
 {
     public class UnitState

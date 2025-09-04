@@ -10,9 +10,13 @@ public class EnemyContext : MonoBehaviour
     public Transform resourceStorageConstructLocation;
     public Transform barracksParent;
     public Transform barracksConstructLocation;
+    public Transform buildLocation;
     public Transform archersParent;
     public float woodRequired;
     public float goldRequired;
+    public int maxWorkersCount = 8;
+    public int maxArchersCount = 4;
+    public bool isOutOfMoney;
     void Start()
     {
         enemyStorage = ResourceHandler.GetTeamStorage("Enemy");

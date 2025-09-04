@@ -1,4 +1,3 @@
-using RTS;
 using RTS.Ability;
 using RTS.Buildings;
 using RTS.InputManager;
@@ -28,12 +27,10 @@ namespace RTS.Objects.Buildings
         public NavMeshObstacle navMeshObstacle;
         public Recruiter recruiter;
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected override void Setup()
         {
 
             SetTeamByHierarchy();
-            meshRenderer.material.color = GetTeamColor();
             minimapIcon.color = GetTeamColor();
             teamResourceStorages = transform.root.GetComponent<TeamResourceStorages>();
             navMeshObstacle = transform.GetComponent<NavMeshObstacle>();
@@ -45,7 +42,10 @@ namespace RTS.Objects.Buildings
             if (state == BuildingState.Init)
             {
                 health = 5;
-                SetColor(Color.lightGreen);
+                if (tag == "Player")
+                    SetColor(Color.lightGreen);
+                if (tag == "Enemy")
+                    SetColor(Color.softRed);
             }
             else
             {
@@ -61,6 +61,11 @@ namespace RTS.Objects.Buildings
                 {
                     state = BuildingState.Finished;
                     SetColor(Color.white);
+                    if (buildingStats.type == BasicBuilding.BuildingType.ResourceStorage)
+                    {
+                        teamResourceStorages = ResourceHandler.GetTeamStorage(tag);
+                        teamResourceStorages.AddResStorage(gameObject);
+                    }
                     if (InputHandler.GetSelectableObjects().Contains(transform))
                     {
                         foreach (var abilityHolder in abilityHolders)
@@ -122,14 +127,19 @@ namespace RTS.Objects.Buildings
 
         protected void Die()
         {
-            RTS.InputManager.InputHandler.GetSelectableObjects().Remove(gameObject.GetComponent<Transform>());
+            if (InputHandler.GetSelectableObjects().Remove(gameObject.GetComponent<Transform>()))
+            {
+                SelectedObjectUI.UpdateUI(InputHandler.GetSelectableObjects());
+            }
             Collider col = GetComponent<Collider>();
             if (col) col.enabled = false;
-            Destroy(gameObject);
-            if (buildingStats.type == BasicBuilding.BuildingType.Farm)
+            WinCondition.CallTestWinCondition();
+            if (buildingStats.type == BasicBuilding.BuildingType.ResourceStorage)
             {
-                teamResourceStorages.allResourceStorages.RemoveAll(item => item == null);
+                if (teamResourceStorages != null)
+                    teamResourceStorages.allResourceStorages.RemoveAll(item => item == null);
             }
+            Destroy(gameObject);
         }
 
         public Color GetColor()

@@ -1,3 +1,4 @@
+using RTS.Objects.Buildings;
 using RTS.Objects.Units;
 using UnityEngine;
 
@@ -11,7 +12,23 @@ namespace RTS.Enemy
 
         public override void EnterState()
         {
-            ManageResources();
+            if (enemyContext.resourceStoragesParent.childCount != 0)
+            {
+                if (enemyContext.resourceStoragesParent.GetChild(0).GetComponent<Building>().state == BuildingState.Finished)
+                    ManageResources();
+            }
+            else
+            {
+                if (RequiredResCollected())
+                {
+                    stateMachine.ChangeState(stateMachine.buildState);
+                }
+                else
+                {
+                    enemyContext.isOutOfMoney = true;
+                    stateMachine.ChangeState(stateMachine.attackState);
+                }
+            }
         }
 
         public override void ExitState()
@@ -20,6 +37,15 @@ namespace RTS.Enemy
 
         public override void Update()
         {
+            if (enemyContext.resourceStoragesParent.childCount == 0)
+            {
+                stateMachine.ChangeState(stateMachine.buildState);
+            }
+            if (enemyContext.woodRequired == 0 && enemyContext.goldRequired == 0 && enemyContext.maxArchersCount <= enemyContext.archersParent.childCount)
+            {
+                stateMachine.ChangeState(stateMachine.attackState);
+                return;
+            }
             if (RequiredResCollected())
             {
                 stateMachine.ChangeState(stateMachine.recruitState);
@@ -28,21 +54,19 @@ namespace RTS.Enemy
 
         private void ManageResources()
         {
-            Debug.Log("manage resources");
             int workerCount = enemyContext.workersParent.childCount;
-            int firstWorkerHalf = workerCount / 2;
-            int secondWorkerHalf = workerCount - firstWorkerHalf;
-            for (int i = 0; i < secondWorkerHalf; i++)
+            for (int i = 0; i < workerCount; i++)
             {
                 Unit enemyWorker = enemyContext.workersParent.GetChild(i).GetComponent<Unit>();
                 Vector3 unitLocation = enemyWorker.transform.position;
-                enemyWorker.UpdateState(ResourceGatherer.FindNearestResource(ResourceType.Gold, ref unitLocation));
-            }
-            for (int i = secondWorkerHalf; i < workerCount; i++)
-            {
-                Unit enemyWorker = enemyContext.workersParent.GetChild(i).GetComponent<Unit>();
-                Vector3 unitLocation = enemyWorker.transform.position;
-                enemyWorker.UpdateState(ResourceGatherer.FindNearestResource(ResourceType.Wood, ref unitLocation));
+                if (i % 2 == 0)
+                {
+                    enemyWorker.UpdateState(ResourceGatherer.FindNearestResource(ResourceType.Gold, ref unitLocation));
+                }
+                else
+                {
+                    enemyWorker.UpdateState(ResourceGatherer.FindNearestResource(ResourceType.Wood, ref unitLocation));
+                }
             }
         }
 

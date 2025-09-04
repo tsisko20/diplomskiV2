@@ -12,21 +12,23 @@ public class Recruiter : MonoBehaviour
     public const int maxQueueSize = 8;
     public Transform recruitPosition;
     public Transform destinationPosition;
+    EnemyContext enemyContext;
 
     public event Action<GameObject> OnUnitAddedToQueue;
     public event Action<int> OnUnitRemovedFromQueue;
     public event Action<GameObject> OnUnitAddedToCurrentRecruit;
     public event Action OnUnitRemovedFromCurrentRecruit;
+
+    private void Awake()
+    {
+        enemyContext = GameObject.Find("GameController").GetComponent<EnemyContext>();
+    }
     public void AddUnitToQueue(GameObject unit)
     {
         if (unitQueue.Count < maxQueueSize)
         {
             unitQueue.Add(unit);
             OnUnitAddedToQueue?.Invoke(unit);
-        }
-        else
-        {
-            Debug.LogWarning("Queue is full, cannot add more units.");
         }
     }
 
@@ -69,11 +71,27 @@ public class Recruiter : MonoBehaviour
         {
             currentUnit = currentRecruit.GetComponent<Unit>();
             recruitTimer = currentUnit.unitStats.recruitTime;
+            int workersCount = enemyContext.workersParent.childCount;
             GameObject newUnit = Instantiate(currentRecruit, recruitPosition.position, recruitPosition.rotation);
             Unit newUnitComponent = newUnit.GetComponent<Unit>();
             newUnitComponent.SetTeam(gameObject.tag);
-            newUnitComponent.destination = destinationPosition.position;
-            newUnitComponent.stateMachine.ChangeState(newUnitComponent.stateMachine.walkState);
+            if (newUnitComponent.tag == "Enemy" && enemyContext.workersParent.childCount > workersCount)
+            {
+                Vector3 workerStartPosition = newUnitComponent.transform.position;
+                if (enemyContext.workersParent.childCount % 2 == 0)
+                {
+                    newUnitComponent.UpdateState(ResourceGatherer.FindNearestResource(ResourceType.Wood, ref workerStartPosition));
+                }
+                else
+                {
+                    newUnitComponent.UpdateState(ResourceGatherer.FindNearestResource(ResourceType.Gold, ref workerStartPosition));
+                }
+            }
+            else
+            {
+                newUnitComponent.destination = destinationPosition.position;
+                newUnitComponent.stateMachine.ChangeState(newUnitComponent.stateMachine.walkState);
+            }
             currentRecruit = null;
             OnUnitRemovedFromCurrentRecruit?.Invoke();
 

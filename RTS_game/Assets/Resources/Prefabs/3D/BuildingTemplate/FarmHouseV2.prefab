@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 440464094360748851}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 3.47}
+  m_LocalPosition: {x: 0, y: -0, z: 6.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 8084923252659860524}
   - component: {fileID: 5437422830281282407}
   - component: {fileID: -5858833399879020023}
-  - component: {fileID: -8848686771484026809}
   m_Layer: 8
   m_Name: FarmHouseV2
   m_TagString: Untagged
@@ -193,7 +192,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 22f7ac8ce7d70874e870a03256ce0c14, type: 2}
+  - {fileID: 2100000, guid: b0a1a135617ef5d4ba099a6cca6f4a66, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -246,7 +245,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: d4333fd9713beec4a9da4803f9c1ea85, type: 2}
   greenMaterial: {fileID: 2100000, guid: 8211f63d4ac6f5b42aa5180e9942fd58, type: 2}
   neutralMaterial: {fileID: 2100000, guid: b7317c5bfd941a146a2a8b3c61885574, type: 2}
-  minimapIcon: {fileID: 2694459914829562651, guid: 0d54a481a813eeb438c1ecc0b668fd9b, type: 3}
+  minimapIcon: {fileID: 1036113520350456063}
   buildingStats: {fileID: 11400000, guid: bce2edc188e5c0a4ea2909cf3b2d997b, type: 2}
   meshRenderer: {fileID: 6788436712908038525}
   boxCollider: {fileID: -5858833399879020023}
@@ -311,19 +310,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.9481566, y: 4.227641, z: 3.5571747}
   m_Center: {x: 0, y: 2.09, z: 0}
---- !u!114 &-8848686771484026809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2651376090777716849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01f76edfa7e78c40bd987e38186853e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetType: 3
 --- !u!1 &4055281260512244123
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +402,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+--- !u!212 &1036113520350456063 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8022951742247337782, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+  m_PrefabInstance: {fileID: 7004860882353592265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4547359640967132579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}

@@ -22,6 +22,10 @@ public class AttackUnitState : UnitState
 
     public override void Update()
     {
+        if (unit.IsDead())
+        {
+            return;
+        }
         if (unit.target == null || attackTarget.IsDead())
         {
             stateMachine.ChangeState(stateMachine.idleState);

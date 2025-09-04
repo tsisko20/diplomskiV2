@@ -2,12 +2,9 @@ using RTS.Ability;
 using RTS.Objects;
 using RTS.Objects.Buildings;
 using RTS.Objects.Units;
-using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Rendering.BuiltIn.ShaderGraph;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace RTS.UI
@@ -18,20 +15,6 @@ namespace RTS.UI
         [SerializeField] private Transform singleSelect;
         [SerializeField] private Transform multiSelect;
         [SerializeField] private Transform abilityGrid;
-        //[SerializeField] Image icon;
-        //[SerializeField] TextMeshProUGUI unitName;
-        //[SerializeField] TextMeshProUGUI maxHealth;
-        //[SerializeField] TextMeshProUGUI armor;
-        //[SerializeField] TextMeshProUGUI attackDamage;
-        //[SerializeField] TextMeshProUGUI attackRange;
-        //[SerializeField] TextMeshProUGUI attackSpeed;
-        //[SerializeField] TextMeshProUGUI moveSpeedValue;
-        //[SerializeField] TextMeshProUGUI moveSpeedLabel;
-
-        //private void Start()
-        //{
-
-        //}
 
         public void Awake()
         {
@@ -97,8 +80,7 @@ namespace RTS.UI
                         {
                             if (abilityHolder.GetAbilityState() == AbilityStateType.Ready)
                             {
-                                Debug.Log(unit.name);
-                                abilityHolder.ActivateAbility(); // Pozovi metodu aktivacije
+                                abilityHolder.ActivateAbility();
                             }
                         });
                     }

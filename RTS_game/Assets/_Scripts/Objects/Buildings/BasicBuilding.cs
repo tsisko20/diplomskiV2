@@ -9,10 +9,6 @@ namespace RTS.Buildings
         {
             ResourceStorage,
             Barracks,
-            DefenseTower,
-            Farm,
-            CapturePoint,
-            Sanctuary
         }
 
         [Space(15)]

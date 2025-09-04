@@ -1,14 +1,8 @@
-﻿using NUnit.Framework;
-using RTS.Ability;
+﻿using RTS.Ability;
 using RTS.InputManager;
-using RTS.Objects.Buildings;
 using RTS.UI;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
-using static RTS.BasicObject;
 
 namespace RTS.Objects
 {
@@ -44,6 +38,9 @@ namespace RTS.Objects
             transform.Find("selectionSprite").gameObject.SetActive(false);
         }
 
+
+
+
         public abstract bool IsDead();
 
         public void SetTeamByHierarchy()
@@ -51,11 +48,12 @@ namespace RTS.Objects
             switch (transform.root.name)
             {
                 case "Player":
-                case "Enemy":
-                case "Neutral":
-                    gameObject.tag = transform.root.name;
+                    tag = "Player";
                     break;
-                default: gameObject.tag = "Neutral"; break;
+                case "Enemy":
+                    tag = "Enemy";
+                    break;
+                default: tag = "Neutral"; break;
             }
             GameObject parentFolderRoot;
             parentFolderRoot = GameObject.Find(GetInstanceDestination());
@@ -70,6 +68,7 @@ namespace RTS.Objects
             parentFolderRoot = GameObject.Find(GetInstanceDestination());
             transform.SetParent(parentFolderRoot.transform);
             healthBar.color = GetTeamColor();
+            minimapIcon.color = GetTeamColor();
         }
 
         protected abstract string GetInstanceDestination();

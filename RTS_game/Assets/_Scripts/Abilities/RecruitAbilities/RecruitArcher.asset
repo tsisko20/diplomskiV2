@@ -15,4 +15,4 @@ MonoBehaviour:
   abilityName: Recruit Archer
   cooldown: 0
   duration: 0
-  unit: {fileID: 1867643048137161736, guid: 260b24f72c6c31a4380f4a94076c7b2c, type: 3}
+  unit: {fileID: 4030688622656236825, guid: 42fb76c887b1be341ac739b618bcf2b2, type: 3}

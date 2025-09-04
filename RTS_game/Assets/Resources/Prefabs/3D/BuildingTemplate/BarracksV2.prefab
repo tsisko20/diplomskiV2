@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 71e41e43b459a244abaf5acca76b89ee, type: 2}
+  - {fileID: 2100000, guid: 41aedb8098ea64a4998ee7407e433a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -192,7 +192,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 71e41e43b459a244abaf5acca76b89ee, type: 2}
+  - {fileID: 2100000, guid: 41aedb8098ea64a4998ee7407e433a02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityTemplate: {fileID: 11400000, guid: 6ace95e94bdd16c4db0283635b22e62a, type: 2}
+  abilityInstance: {fileID: 0}
   activeDuration: 0
   activeCooldown: 0
   buttonPrefab: {fileID: 1537048188674838020, guid: b65aeed487566cc458f02515eb4a5f33, type: 3}
@@ -262,7 +263,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: d4333fd9713beec4a9da4803f9c1ea85, type: 2}
   greenMaterial: {fileID: 2100000, guid: 8211f63d4ac6f5b42aa5180e9942fd58, type: 2}
   neutralMaterial: {fileID: 2100000, guid: b7317c5bfd941a146a2a8b3c61885574, type: 2}
-  minimapIcon: {fileID: 2694459914829562651, guid: 0d54a481a813eeb438c1ecc0b668fd9b, type: 3}
+  minimapIcon: {fileID: 7072297591625596855}
   buildingStats: {fileID: 11400000, guid: 4adcda06fbdec16418ddd7e458728920, type: 2}
   meshRenderer: {fileID: 4804939160857929503}
   boxCollider: {fileID: -47968964072424813}
@@ -487,6 +488,11 @@ PrefabInstance:
 --- !u!4 &6007711131597890283 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6786137782461669994, guid: e76fce26c868faf468fc83442dc70637, type: 3}
+  m_PrefabInstance: {fileID: 969005277526442113}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7072297591625596855 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8022951742247337782, guid: e76fce26c868faf468fc83442dc70637, type: 3}
   m_PrefabInstance: {fileID: 969005277526442113}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4149220952409622891

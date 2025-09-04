@@ -26,18 +26,13 @@ namespace RTS.InputManager
         }
         public static void DrawScreenRectBorder(Rect rect, float thickness, Color color)
         {
-            //top border
             DrawScreenRect(new Rect(rect.xMin, rect.yMin, rect.width, thickness), color);
-            //bottom border
             DrawScreenRect(new Rect(rect.xMin, rect.yMax - thickness, rect.width, thickness), color);
-            //left border
             DrawScreenRect(new Rect(rect.xMin, rect.yMin, thickness, rect.height), color);
-            //right border
             DrawScreenRect(new Rect(rect.xMax - thickness, rect.yMin, thickness, rect.height), color);
         }
         public static Rect GetScreenRect(Vector3 screenPos1, Vector3 screenPos2)
         {
-            //from bottom right to top left
             screenPos1.y = Screen.height - screenPos1.y;
             screenPos2.y = Screen.height - screenPos2.y;
             Vector3 bR = Vector3.Max(screenPos1, screenPos2);

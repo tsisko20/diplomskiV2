@@ -1,8 +1,3 @@
-using RTS.Objects.Units;
-using System.Xml;
-using Unity.IO.LowLevel.Unsafe;
-using UnityEngine;
-
 namespace RTS.Enemy
 {
     public class EnemyStateMachine
@@ -11,7 +6,6 @@ namespace RTS.Enemy
 
         public EconomyState economyState;
         public AttackState attackState;
-        public DefenseState defenseState;
         public BuildState buildState;
         public RecruitState recruitState;
 
@@ -19,10 +13,8 @@ namespace RTS.Enemy
         {
             economyState = new EconomyState(enemyContext, this);
             attackState = new AttackState(enemyContext, this);
-            defenseState = new DefenseState(enemyContext, this);
             buildState = new BuildState(enemyContext, this);
             recruitState = new RecruitState(enemyContext, this);
-            Debug.Log("ulazi u economy state");
             currentState = economyState;
             currentState.EnterState();
         }

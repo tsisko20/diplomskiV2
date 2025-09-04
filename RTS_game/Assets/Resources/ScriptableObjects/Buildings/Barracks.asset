@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Barracks
   m_EditorClassIdentifier: 
   baseStats:
-    goldCost: 0
-    woodCost: 0
+    goldCost: 100
+    woodCost: 100
     aggroRange: 0
     attackRange: 0
     attackSpeed: 0
@@ -22,5 +22,5 @@ MonoBehaviour:
     health: 450
     armor: 20
   icon: {fileID: 0}
-  type: 0
+  type: 1
   buildingName: Barrack

@@ -1700,9 +1700,6 @@ PrefabInstance:
       addedObject: {fileID: -5152790022385802875}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dff32c648ed02d4da6eb7ab4702f33c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6023232856505218920}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dff32c648ed02d4da6eb7ab4702f33c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -8410391970403025743}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dff32c648ed02d4da6eb7ab4702f33c, type: 3}
       insertIndex: -1
@@ -1903,19 +1900,6 @@ MonoBehaviour:
   activeCooldown: 0
   buttonPrefab: {fileID: 1537048188674838020, guid: fe04c8fffb704aa478e09168e900f366, type: 3}
   buttonUI: {fileID: 0}
---- !u!114 &6023232856505218920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6384201335879838320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01f76edfa7e78c40bd987e38186853e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetType: 1
 --- !u!114 &-8410391970403025743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1950,5 +1934,5 @@ MonoBehaviour:
   abilityInstance: {fileID: 0}
   activeDuration: 0
   activeCooldown: 0
-  buttonPrefab: {fileID: 1537048188674838020, guid: fe04c8fffb704aa478e09168e900f366, type: 3}
+  buttonPrefab: {fileID: 1537048188674838020, guid: e25732a6836bc934c801d8eedf8bb298, type: 3}
   buttonUI: {fileID: 0}

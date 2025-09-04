@@ -6,6 +6,13 @@ public class ResourceUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI goldValueUI;
     [SerializeField] private TextMeshProUGUI woodValueUI;
 
+    private void Start()
+    {
+        TeamResourceStorages playerResources = ResourceHandler.GetTeamStorage("Player");
+        UpdateResValueUI(ResourceType.Gold, playerResources.GetGoldCount());
+        UpdateResValueUI(ResourceType.Wood, playerResources.GetWoodCount());
+    }
+
     public void UpdateResValueUI(ResourceType resType, int value)
     {
         switch (resType)
