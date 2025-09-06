@@ -59,21 +59,22 @@ namespace RTS.Objects.Buildings
             {
                 if (health == buildingStats.baseStats.health)
                 {
-                    state = BuildingState.Finished;
+
                     SetColor(Color.white);
                     if (buildingStats.type == BasicBuilding.BuildingType.ResourceStorage)
                     {
                         teamResourceStorages = ResourceHandler.GetTeamStorage(tag);
                         teamResourceStorages.AddResStorage(gameObject);
                     }
+                    foreach (var abilityHolder in abilityHolders)
+                    {
+                        abilityHolder.Setup();
+                    }
                     if (InputHandler.GetSelectableObjects().Contains(transform))
                     {
-                        foreach (var abilityHolder in abilityHolders)
-                        {
-                            abilityHolder.Setup();
-                        }
                         SelectedObjectUI.UpdateUI(InputHandler.GetSelectableObjects());
                     }
+                    state = BuildingState.Finished;
                 }
             }
         }

@@ -13,7 +13,7 @@ namespace RTS.Ability
         [SerializeField] private GameObject buttonPrefab;
         [SerializeField] private AbilityButtonUI buttonUI;
 
-        private void Start()
+        private void Awake()
         {
             Setup();
         }

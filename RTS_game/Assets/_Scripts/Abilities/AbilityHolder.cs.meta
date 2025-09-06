@@ -6,7 +6,7 @@ MonoImporter:
   defaultReferences:
   - ability: {fileID: 11400000, guid: dbc9d87061c5e9142a679e62abba2588, type: 2}
   - buttonPrefab: {instanceID: 0}
-  executionOrder: 0
+  executionOrder: 500
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
