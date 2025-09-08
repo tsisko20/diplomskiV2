@@ -37,6 +37,7 @@ public class UnitAnimator : MonoBehaviour
     {
         if (currentState == state)
             return;
+        Debug.Log("stani gradnju");
         ChangeBoolValueInAnimator(currentState, false);
         ChangeBoolValueInAnimator(state, true);
         currentState = state;

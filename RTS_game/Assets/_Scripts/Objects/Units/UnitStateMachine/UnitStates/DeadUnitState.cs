@@ -9,7 +9,6 @@ public class DeadUnitState : UnitState
     public DeadUnitState(Unit _unit, UnitStateMachine _stateMachine) : base(_unit, _stateMachine)
     {
     }
-
     public override void EnterState()
     {
         unit.navAgent.enabled = false;
@@ -22,14 +21,5 @@ public class DeadUnitState : UnitState
         {
             SelectedObjectUI.UpdateUI(InputHandler.GetSelectableObjects());
         }
-    }
-
-    public override void ExitState()
-    {
-    }
-
-    public override void Update()
-    {
-
     }
 }

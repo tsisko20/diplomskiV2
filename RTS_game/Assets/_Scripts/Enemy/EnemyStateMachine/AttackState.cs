@@ -12,16 +12,6 @@ namespace RTS.Enemy
         {
         }
 
-        public override void EnterState()
-        {
-
-        }
-
-        public override void ExitState()
-        {
-            base.ExitState();
-        }
-
         public override void Update()
         {
             if (attackTarget != null)

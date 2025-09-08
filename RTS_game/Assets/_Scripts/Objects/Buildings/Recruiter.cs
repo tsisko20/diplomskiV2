@@ -69,32 +69,36 @@ public class Recruiter : MonoBehaviour
         }
         else
         {
-            currentUnit = currentRecruit.GetComponent<Unit>();
-            recruitTimer = currentUnit.unitStats.recruitTime;
-            int workersCount = enemyContext.workersParent.childCount;
-            GameObject newUnit = Instantiate(currentRecruit, recruitPosition.position, recruitPosition.rotation);
-            Unit newUnitComponent = newUnit.GetComponent<Unit>();
-            newUnitComponent.SetTeam(gameObject.tag);
-            if (newUnitComponent.tag == "Enemy" && enemyContext.workersParent.childCount > workersCount)
+            RecruitUnit();
+        }
+    }
+    private void RecruitUnit()
+    {
+        currentUnit = currentRecruit.GetComponent<Unit>();
+        recruitTimer = currentUnit.unitStats.recruitTime;
+        int workersCount = enemyContext.workersParent.childCount;
+        GameObject newUnit = Instantiate(currentRecruit, recruitPosition.position, recruitPosition.rotation);
+        Unit newUnitComponent = newUnit.GetComponent<Unit>();
+        newUnitComponent.SetTeam(gameObject.tag);
+        newUnitComponent.SetupAbilities();
+        if (newUnitComponent.tag == "Enemy" && enemyContext.workersParent.childCount > workersCount)
+        {
+            Vector3 workerStartPosition = newUnitComponent.transform.position;
+            if (enemyContext.workersParent.childCount % 2 == 0)
             {
-                Vector3 workerStartPosition = newUnitComponent.transform.position;
-                if (enemyContext.workersParent.childCount % 2 == 0)
-                {
-                    newUnitComponent.UpdateState(ResourceGatherer.FindNearestResource(ResourceType.Wood, ref workerStartPosition));
-                }
-                else
-                {
-                    newUnitComponent.UpdateState(ResourceGatherer.FindNearestResource(ResourceType.Gold, ref workerStartPosition));
-                }
+                newUnitComponent.UpdateState(ResourceGatherer.FindNearestResource(ResourceType.Wood, ref workerStartPosition));
             }
             else
             {
-                newUnitComponent.destination = destinationPosition.position;
-                newUnitComponent.stateMachine.ChangeState(newUnitComponent.stateMachine.walkState);
+                newUnitComponent.UpdateState(ResourceGatherer.FindNearestResource(ResourceType.Gold, ref workerStartPosition));
             }
-            currentRecruit = null;
-            OnUnitRemovedFromCurrentRecruit?.Invoke();
-
         }
+        else
+        {
+            newUnitComponent.destination = destinationPosition.position;
+            newUnitComponent.stateMachine.ChangeState(newUnitComponent.stateMachine.walkState);
+        }
+        currentRecruit = null;
+        OnUnitRemovedFromCurrentRecruit?.Invoke();
     }
 }

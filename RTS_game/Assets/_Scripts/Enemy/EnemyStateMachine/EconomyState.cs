@@ -15,7 +15,7 @@ namespace RTS.Enemy
             if (enemyContext.resourceStoragesParent.childCount != 0)
             {
                 if (enemyContext.resourceStoragesParent.GetChild(0).GetComponent<Building>().state == BuildingState.Finished)
-                    ManageResources();
+                    GatherResources();
             }
             else
             {
@@ -29,10 +29,6 @@ namespace RTS.Enemy
                     stateMachine.ChangeState(stateMachine.attackState);
                 }
             }
-        }
-
-        public override void ExitState()
-        {
         }
 
         public override void Update()
@@ -52,7 +48,7 @@ namespace RTS.Enemy
             }
         }
 
-        private void ManageResources()
+        private void GatherResources()
         {
             int workerCount = enemyContext.workersParent.childCount;
             for (int i = 0; i < workerCount; i++)

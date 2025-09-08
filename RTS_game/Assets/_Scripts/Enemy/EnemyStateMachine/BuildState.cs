@@ -19,11 +19,6 @@ namespace RTS.Enemy
             ConstructBuildings();
         }
 
-        public override void ExitState()
-        {
-            base.ExitState();
-        }
-
         public override void Update()
         {
             if (currentConstruction == null)
@@ -51,7 +46,6 @@ namespace RTS.Enemy
                         buildInProgress = true;
                         break;
                     }
-
                 }
             }
             if (currentConstruction != null && builder != null && builder.IsDead() == false && buildInProgress == false)
@@ -59,7 +53,6 @@ namespace RTS.Enemy
                 builder.UpdateState(currentConstruction.gameObject);
                 buildInProgress = true;
             }
-
         }
 
         void ConstructBuildings()

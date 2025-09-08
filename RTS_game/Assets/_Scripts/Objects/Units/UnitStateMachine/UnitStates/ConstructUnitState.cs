@@ -17,21 +17,16 @@ public class ConstructUnitState : UnitState
     {
         targetBuilding = unit.target.GetComponent<Building>();
         targetMaxHealth = targetBuilding.GetBaseStats().baseStats.health;
-        if (targetBuilding.GetCurrentHealth() == targetMaxHealth)
-        {
-            stateMachine.ChangeState(stateMachine.walkState);
-        }
         repairTimer = TIME_TO_REPAIR;
     }
-
-    public override void ExitState()
-    {
-        base.ExitState();
-    }
-
     public override void Update()
     {
         if (targetBuilding == null)
+        {
+            stateMachine.ChangeState(stateMachine.idleState);
+            return;
+        }
+        if (targetBuilding.GetCurrentHealth() == targetMaxHealth)
         {
             stateMachine.ChangeState(stateMachine.idleState);
             return;
@@ -51,10 +46,6 @@ public class ConstructUnitState : UnitState
         else
         {
             unit.MoveTo(unit.target.transform.position);
-        }
-        if (targetBuilding.GetCurrentHealth() == targetMaxHealth)
-        {
-            stateMachine.ChangeState(stateMachine.idleState);
         }
     }
 

@@ -11,15 +11,6 @@ public class RecruitState : EnemyState
     {
     }
 
-    public override void EnterState()
-    {
-    }
-
-    public override void ExitState()
-    {
-        base.ExitState();
-    }
-
     public override void Update()
     {
         RecruitUnits();

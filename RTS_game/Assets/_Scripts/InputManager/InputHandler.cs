@@ -27,8 +27,8 @@ namespace RTS.InputManager
 
         private void Update()
         {
-            HandleUnitMovement();
-
+            HandleUnitSelection();
+            OnRightClickUpSetTarget();
         }
 
         private void OnGUI()
@@ -40,14 +40,19 @@ namespace RTS.InputManager
                 MultiSelect.DrawScreenRectBorder(rect, 3, Color.blue);
             }
         }
-        public void HandleUnitMovement()
+        public void HandleUnitSelection()
+        {
+            OnLeftClickDownTest();
+            OnLeftClickUpSelect();
+        }
+
+        private void OnLeftClickDownTest()
         {
             if (Input.GetMouseButtonDown(0))
             {
                 hasClickedOnUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
                 mousePos = Input.mousePosition;
             }
-
             if (Input.GetMouseButton(0))
             {
                 if (Vector3.Distance(mousePos, Input.mousePosition) > dragThreshold)
@@ -56,7 +61,10 @@ namespace RTS.InputManager
                         isDragging = true;
                 }
             }
+        }
 
+        private void OnLeftClickUpSelect()
+        {
             if (Input.GetMouseButtonUp(0))
             {
                 if (isDragging)
@@ -89,7 +97,6 @@ namespace RTS.InputManager
                         {
                             if (!Input.GetKey(KeyCode.LeftShift))
                                 DeselectObjects();
-
                             SelectObject(selectable, Input.GetKey(KeyCode.LeftShift));
                         }
                         else
@@ -98,13 +105,15 @@ namespace RTS.InputManager
                         }
                     }
                 }
-
                 isDragging = false;
                 SelectedObjectUI.UpdateUI(selectedObjects);
                 hasClickedOnUI = false;
                 PlayUnitSelectSound();
             }
+        }
 
+        private void OnRightClickUpSetTarget()
+        {
             if (Input.GetMouseButtonUp(1) && HaveSelectedUnits())
             {
                 if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())

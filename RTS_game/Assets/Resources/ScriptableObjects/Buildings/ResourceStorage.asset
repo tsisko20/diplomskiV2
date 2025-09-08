@@ -21,6 +21,6 @@ MonoBehaviour:
     attackDamage: 0
     health: 50
     armor: 10
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 86b729773d3b69244950be18557923b3, type: 3}
   type: 0
   buildingName: Resource Storage

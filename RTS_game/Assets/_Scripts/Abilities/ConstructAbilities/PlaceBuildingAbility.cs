@@ -38,7 +38,6 @@ public class PlaceBuildingAbility : AbilityBase
 
     public override void Activate()
     {
-
         if (teamResourceStorages.GetGoldCount() >= goldCost && teamResourceStorages.GetWoodCount() >= woodCost)
         {
             if (unit.tag == "Player")

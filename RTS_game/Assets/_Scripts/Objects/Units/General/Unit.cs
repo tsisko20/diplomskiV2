@@ -95,6 +95,14 @@ namespace RTS.Objects.Units
             }
         }
 
+        public void SetupAbilities()
+        {
+            foreach (var abilityHolder in abilityHolders)
+            {
+                abilityHolder.Setup();
+            }
+        }
+
         protected override string GetInstanceDestination()
         {
             string parentFolder = unitStats.unitName + "s";

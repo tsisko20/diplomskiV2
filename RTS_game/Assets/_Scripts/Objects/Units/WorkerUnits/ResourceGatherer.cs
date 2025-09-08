@@ -41,6 +41,5 @@ public class ResourceGatherer : MonoBehaviour
             previousTargetLocation = newResource.transform.position;
         }
         return newResource;
-
     }
 }

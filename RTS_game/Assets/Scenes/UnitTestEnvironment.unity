@@ -9266,74 +9266,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 330585545}
-  pointerPosition:
-    m_Name: Pointer Position
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: b61ac713-6db9-436b-9c2f-e4f4e86d02d5
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 0aa0fc4f-9c2d-42c4-aa5c-219c60349111
-      m_Path: <Pointer>/position
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Pointer Position
-      m_Flags: 0
-    m_Flags: 0
-  leftClick:
-    m_Name: Left Click
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e8c4b09e-e7fa-400f-993c-43fbedef1733
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 1d43e34a-668e-44cc-a7b0-63c1aeeccfeb
-      m_Path: <Mouse>/leftButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Left Click
-      m_Flags: 0
-    m_Flags: 0
-  rightClick:
-    m_Name: Right Click
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: c6147185-c390-4956-b58c-fc894837cc9b
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 6eb985bd-ac47-4a1c-93cb-c00e3ced3c93
-      m_Path: <Mouse>/rightButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Right Click
-      m_Flags: 0
-    m_Flags: 0
-  cancelInput:
-    m_Name: Cancel Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: a09f8454-3acd-4b01-a6b1-d1f6dfd16baf
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 7bda29ff-1ac4-4267-a2c4-a4654e5bf728
-      m_Path: <Keyboard>/escape
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cancel Input
-      m_Flags: 0
-    m_Flags: 0
   terrainLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -9342,7 +9274,6 @@ MonoBehaviour:
     m_Bits: 256
   validColor: {r: 0.1764706, g: 0.36078432, b: 1, a: 0}
   invalidColor: {r: 0.8490566, g: 0.29236382, b: 0.29236382, a: 0}
-  rotationSpeed: 0.5
 --- !u!1 &1208971725
 GameObject:
   m_ObjectHideFlags: 0
@@ -9560,8 +9491,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84da6dfe9f1edb248a9e53e0bb30289c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldCount: 500
-  woodCount: 500
+  goldCount: 50
+  woodCount: 50
   resourceUI: {fileID: 0}
   resStorageParent: {fileID: 804081542}
   allResourceStorages: []
@@ -11947,6 +11878,10 @@ PrefabInstance:
     - target: {fileID: 6384201335879838320, guid: 9ebff4005f3086d4b8f20b97cbf85445, type: 3}
       propertyPath: m_Name
       value: Worker
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384201335879838320, guid: 9ebff4005f3086d4b8f20b97cbf85445, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

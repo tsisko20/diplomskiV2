@@ -9,7 +9,6 @@ public class AttackUnitState : UnitState
     public AttackUnitState(Unit _unit, UnitStateMachine _unitStateMachine) : base(_unit, _unitStateMachine)
     {
     }
-
     public override void EnterState()
     {
         attackTarget = unit.target.GetComponent<IAttackable>();
@@ -19,7 +18,6 @@ public class AttackUnitState : UnitState
     {
         attackTarget = null;
     }
-
     public override void Update()
     {
         if (unit.IsDead())
@@ -31,11 +29,9 @@ public class AttackUnitState : UnitState
             stateMachine.ChangeState(stateMachine.idleState);
             return;
         }
-
         Collider targetCollider = attackTarget.GetTransform().GetComponent<Collider>();
         Vector3 closestPoint = targetCollider.ClosestPoint(unit.transform.position);
         float distance = Vector3.Distance(unit.transform.position, closestPoint);
-
         if (distance <= unit.unitStats.baseStats.attackRange)
         {
             unit.StopMoving();
@@ -46,7 +42,6 @@ public class AttackUnitState : UnitState
             unit.MoveTo(attackTarget.GetTransform().position);
         }
     }
-
     private void AttackTarget()
     {
         unit.animator.ChangeAnimation(UnitStates.Attacking);

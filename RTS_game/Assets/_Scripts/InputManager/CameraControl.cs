@@ -7,7 +7,7 @@ public class CameraControl : MonoBehaviour
     [SerializeField] private Vector3 upperLimits;
     [SerializeField] private float scrollSpeed;
     [SerializeField] private float movementSpeed = 200f;
-    [SerializeField] float panBorderThickness = 10f;
+    [SerializeField] private float panBorderThickness = 10f;
     private bool shouldMoveCamera = false;
 
     void Awake()
@@ -17,13 +17,18 @@ public class CameraControl : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            shouldMoveCamera = !shouldMoveCamera;
-        }
+        HandleToggleInput();
         if (shouldMoveCamera)
         {
             HandleCameraMovement();
+        }
+    }
+
+    private void HandleToggleInput()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            shouldMoveCamera = !shouldMoveCamera;
         }
     }
     private void HandleCameraMovement()
@@ -56,9 +61,7 @@ public class CameraControl : MonoBehaviour
     {
         instance.shouldMoveCamera = !instance.shouldMoveCamera;
     }
-
     public static bool IsCameraControllOn() => instance.shouldMoveCamera;
-
     public static Vector3 GetLowerLimits() => instance.lowerLimits;
     public static Vector3 GetUpperLimits() => instance.upperLimits;
 }

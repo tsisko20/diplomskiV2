@@ -18,7 +18,6 @@ public class GatherUnitState : UnitState
     private Transform closestResourceStorage;
     private Transform closestResource;
     private TeamResourceStorages teamResourceStorages;
-    private List<GameObject> allResourceObjects;
     public GatherUnitState(Unit _unit, UnitStateMachine _stateMachine) : base(_unit, _stateMachine)
     {
     }
@@ -38,11 +37,6 @@ public class GatherUnitState : UnitState
         resourceType = targetResource.GetResourceType();
         closestResource = targetResource.GetTransform();
         previousTargetLocation = closestResource.position;
-    }
-
-    public override void ExitState()
-    {
-        base.ExitState();
     }
 
     public override void Update()
